@@ -10,4 +10,16 @@ class SeriesViewModel : ViewModel() {
         value = "This is notifications Fragment"
     }
     val text: LiveData<String> = _text
+
+    fun getSeriesPopular() {
+        // TODO: 29/06/2021 Implementar el caso de uso
+    }
+
+    fun getSeriesOnAir() {
+        // TODO: 29/06/2021 Implementar el caso de uso
+    }
+
+    fun getSeriesTopRated() {
+        // TODO: 29/06/2021 Implementar el caso de uso
+    }
 }
