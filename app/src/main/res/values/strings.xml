@@ -5,7 +5,12 @@
     <string name="title_series">Series</string>
 
     <!--    Movies-->
-    <string name="movie.category_popular">Popular</string>
-    <string name="movie.category_latest">Últimas</string>
-    <string name="movie.top_rated">Más valoradas</string>
+    <string name="movies.category_popular">Popular</string>
+    <string name="movies.category_latest">Últimas</string>
+    <string name="movies.top_rated">Más valoradas</string>
+
+    <!--    Series-->
+    <string name="series.category_popular">Popular</string>
+    <string name="series.category_on_air">Al aire</string>
+    <string name="series.top_rated">Más valoradas</string>
 </resources>
