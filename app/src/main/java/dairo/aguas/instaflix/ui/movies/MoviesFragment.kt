@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentMoviesBinding
 
 class MoviesFragment : Fragment() {
@@ -28,12 +28,30 @@ class MoviesFragment : Fragment() {
             ViewModelProvider(this).get(MoviesViewModel::class.java)
 
         _binding = FragmentMoviesBinding.inflate(inflater, container, false)
+//        binding.chipPopular.setOnCheckedChangeListener { compoundButton, checked ->
+//            if (compoundButton.isChecked && checked)
+//                Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+//        }
+
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.chipPopular -> {
+                    Toast.makeText(requireContext(), "chipPopular", Toast.LENGTH_SHORT).show()
+                }
+                R.id.chipLatest -> {
+                    Toast.makeText(requireContext(), "chipLatest", Toast.LENGTH_SHORT).show()
+                }
+                R.id.chipTopRated -> {
+                    Toast.makeText(requireContext(), "chipTopRated", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        moviesViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+//        val textView: TextView = binding.textDashboard
+//        moviesViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
         return root
     }
 

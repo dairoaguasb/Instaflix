@@ -3,4 +3,14 @@
     <string name="title_activity_home">MainActivity</string>
     <string name="title_movies">Peliculas</string>
     <string name="title_series">Series</string>
+
+    <!--    Movies-->
+    <string name="movies.category_popular">Popular</string>
+    <string name="movies.category_latest">Últimas</string>
+    <string name="movies.top_rated">Más valoradas</string>
+
+    <!--    Series-->
+    <string name="series.category_popular">Popular</string>
+    <string name="series.category_on_air">Al aire</string>
+    <string name="series.top_rated">Más valoradas</string>
 </resources>
