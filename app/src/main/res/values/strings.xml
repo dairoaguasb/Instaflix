@@ -3,4 +3,9 @@
     <string name="title_activity_home">MainActivity</string>
     <string name="title_movies">Peliculas</string>
     <string name="title_series">Series</string>
+
+    <!--    Movies-->
+    <string name="movie.category_popular">Popular</string>
+    <string name="movie.category_latest">Últimas</string>
+    <string name="movie.top_rated">Más valoradas</string>
 </resources>

@@ -4,18 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp">
+    android:padding="@dimen/padding_2dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:lines="2"
-        android:minLines="2"
-        android:padding="8dp"
-        android:text="@{movie.title}"
+        android:padding="@dimen/padding_8dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +22,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPoster"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/size_0dp"
         app:layout_constraintDimensionRatio="1:1.5"
         app:layout_constraintTop_toTopOf="parent">
 
