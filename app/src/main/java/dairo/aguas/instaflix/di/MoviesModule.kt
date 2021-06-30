@@ -11,6 +11,8 @@ import dairo.aguas.instaflix.domain.repository.MovieRepository
 import dairo.aguas.instaflix.domain.usecase.GetMoviesLatestUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
+import dairo.aguas.instaflix.ui.movies.MoviesViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
 
 /**
@@ -19,6 +21,19 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(ViewModelComponent::class)
 object MoviesModule {
+
+    @Provides
+    fun moviesViewModelProvider(
+        getMoviesLatestUseCase: GetMoviesLatestUseCase,
+        getMoviesPopularUseCase: GetMoviesPopularUseCase,
+        getMoviesTopRatedUseCase: GetMoviesTopRatedUseCase,
+        coroutineDispatcher: CoroutineDispatcher
+    ) = MoviesViewModel(
+        getMoviesLatestUseCase,
+        getMoviesPopularUseCase,
+        getMoviesTopRatedUseCase,
+        coroutineDispatcher
+    )
 
     @Provides
     @ViewModelScoped
