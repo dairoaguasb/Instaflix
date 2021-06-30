@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetMoviesLatestUseCase(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(): Flow<Result<MovieResponse>> = movieRepository.getMoviesPopular()
+    operator fun invoke(): Flow<Result<MovieResponse>> = movieRepository.getMoviesLatest()
 }
