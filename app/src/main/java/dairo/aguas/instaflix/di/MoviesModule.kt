@@ -8,7 +8,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import dairo.aguas.instaflix.data.endpoints.MovieAPI
 import dairo.aguas.instaflix.data.repository.MovieRepositoryImpl
 import dairo.aguas.instaflix.domain.repository.MovieRepository
-import dairo.aguas.instaflix.domain.usecase.GetMoviesLatestUseCase
+import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
 import dairo.aguas.instaflix.ui.movies.MoviesViewModel
@@ -24,12 +24,12 @@ object MoviesModule {
 
     @Provides
     fun moviesViewModelProvider(
-        getMoviesLatestUseCase: GetMoviesLatestUseCase,
+        getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase,
         getMoviesPopularUseCase: GetMoviesPopularUseCase,
         getMoviesTopRatedUseCase: GetMoviesTopRatedUseCase,
         coroutineDispatcher: CoroutineDispatcher
     ) = MoviesViewModel(
-        getMoviesLatestUseCase,
+        getMoviesUpcomingUseCase,
         getMoviesPopularUseCase,
         getMoviesTopRatedUseCase,
         coroutineDispatcher
@@ -38,7 +38,7 @@ object MoviesModule {
     @Provides
     @ViewModelScoped
     fun getMoviesLatestUseCaseProvider(movieRepository: MovieRepository) =
-        GetMoviesLatestUseCase(movieRepository)
+        GetMoviesUpcomingUseCase(movieRepository)
 
     @Provides
     @ViewModelScoped

@@ -18,8 +18,8 @@ class MovieRepositoryImpl(
             emit(Result.Success(apiResult.toDomainMovies()))
         }
 
-    override fun getMoviesLatest() =
-        movieAPI.getMoviesLatest(apiKey).transform { apiResult ->
+    override fun getMoviesUpcoming() =
+        movieAPI.getMoviesUpcoming(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
         }
 
