@@ -10,6 +10,8 @@ import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.usecase.GetMoviesLatestUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
+import dairo.aguas.instaflix.ui.base.BaseViewModel
+import dairo.aguas.instaflix.ui.model.MovieViewData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -22,17 +24,20 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesPopularUseCase: GetMoviesPopularUseCase,
     private val getMoviesTopRatedUseCase: GetMoviesTopRatedUseCase,
     private val coroutineDispatcher: CoroutineDispatcher
-) : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+) : BaseViewModel<MoviesState>(MoviesState.Loading) {
 
     fun getMoviesPopular() {
         getMoviesPopularUseCase.invoke().map { moviesResult ->
             if (moviesResult is Result.Success) {
-                Log.d("getMoviesPopular", "${moviesResult.data.movies}")
+                mutableState.value = MoviesState.Success(
+                    data = moviesResult.data.movies.map {
+                        MovieViewData(it)
+                    }
+                )
+            } else if (moviesResult is Result.Failure) {
+                mutableState.value = MoviesState.Error(
+                    moviesResult.exception.message ?: "ERROR DESCONICIDO"
+                )
             }
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
