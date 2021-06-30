@@ -10,4 +10,8 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
 
     fun getMoviesPopular(): Flow<Result<MovieResponse>>
+
+    fun getMoviesLatest(): Flow<Result<MovieResponse>>
+
+    fun getMoviesTopRated(): Flow<Result<MovieResponse>>
 }

@@ -29,6 +29,44 @@ class MovieRepositoryImpl : MovieRepository {
             )
         )
     }
+
+    override fun getMoviesLatest() = flow<Result<MovieResponse>> {
+        emit(
+            Result.Success(
+                MovieResponse(
+                    page = 1,
+                    movieList = mutableListOf(
+                        movieMock,
+                        movieMock,
+                        movieMock,
+                        movieMock,
+                        movieMock
+                    ),
+                    totalPages = 10,
+                    totalResults = 100
+                )
+            )
+        )
+    }
+
+    override fun getMoviesTopRated() = flow<Result<MovieResponse>> {
+        emit(
+            Result.Success(
+                MovieResponse(
+                    page = 1,
+                    movieList = mutableListOf(
+                        movieMock,
+                        movieMock,
+                        movieMock,
+                        movieMock,
+                        movieMock
+                    ),
+                    totalPages = 10,
+                    totalResults = 100
+                )
+            )
+        )
+    }
 }
 
 private val movieMock = Movie(
