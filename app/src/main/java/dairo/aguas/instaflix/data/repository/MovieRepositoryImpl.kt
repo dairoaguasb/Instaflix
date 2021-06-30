@@ -16,12 +16,12 @@ class MovieRepositoryImpl(private val movieAPI: MovieAPI) : MovieRepository {
         }
 
     override fun getMoviesLatest(apiKey: String) =
-        movieAPI.getMoviesPopular(apiKey).transform { apiResult ->
+        movieAPI.getMoviesLatest(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
         }
 
     override fun getMoviesTopRated(apiKey: String) =
-        movieAPI.getMoviesPopular(apiKey).transform { apiResult ->
+        movieAPI.getMoviesTopRated(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
         }
 }
