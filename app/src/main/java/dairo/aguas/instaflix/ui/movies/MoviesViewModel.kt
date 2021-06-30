@@ -30,7 +30,7 @@ class MoviesViewModel @Inject constructor(
     val text: LiveData<String> = _text
 
     fun getMoviesPopular() {
-        getMoviesPopularUseCase.invoke("").map { moviesResult ->
+        getMoviesPopularUseCase.invoke().map { moviesResult ->
             if (moviesResult is Result.Success) {
                 Log.d("getMoviesPopular", "${moviesResult.data.movies}")
             }

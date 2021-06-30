@@ -16,9 +16,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "PROPERTIES_FILE", "\"app.properties\""
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_KEY", "\"API_KEY\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

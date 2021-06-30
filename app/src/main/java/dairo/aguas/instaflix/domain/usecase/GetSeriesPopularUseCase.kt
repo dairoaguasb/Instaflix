@@ -10,6 +10,6 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetSeriesPopularUseCase(private val serieRepository: SerieRepository) {
 
-    operator fun invoke(apiKey: String): Flow<Result<Series>> =
-        serieRepository.getSeriesPopular(apiKey)
+    operator fun invoke(): Flow<Result<Series>> =
+        serieRepository.getSeriesPopular()
 }

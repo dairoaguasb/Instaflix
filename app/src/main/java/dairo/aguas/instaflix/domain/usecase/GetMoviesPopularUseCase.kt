@@ -10,6 +10,6 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetMoviesPopularUseCase(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(apiKey: String): Flow<Result<Movies>> =
-        movieRepository.getMoviesPopular(apiKey)
+    operator fun invoke(): Flow<Result<Movies>> =
+        movieRepository.getMoviesPopular()
 }

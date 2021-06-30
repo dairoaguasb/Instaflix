@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MovieRepository {
 
-    fun getMoviesPopular(apiKey: String): Flow<Result<Movies>>
+    fun getMoviesPopular(): Flow<Result<Movies>>
 
-    fun getMoviesLatest(apiKey: String): Flow<Result<Movies>>
+    fun getMoviesLatest(): Flow<Result<Movies>>
 
-    fun getMoviesTopRated(apiKey: String): Flow<Result<Movies>>
+    fun getMoviesTopRated(): Flow<Result<Movies>>
 }

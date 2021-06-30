@@ -52,8 +52,8 @@ object SeriesModule {
 
     @Provides
     @ViewModelScoped
-    fun serieRepositoryProvider(serieAPI: SerieAPI): SerieRepository =
-        SeriesRepositoryImpl(serieAPI)
+    fun serieRepositoryProvider(serieAPI: SerieAPI, apiKey: String): SerieRepository =
+        SeriesRepositoryImpl(serieAPI, apiKey)
 
     @Provides
     @ViewModelScoped

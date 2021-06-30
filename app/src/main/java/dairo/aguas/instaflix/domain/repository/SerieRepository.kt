@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface SerieRepository {
 
-    fun getSeriesPopular(apiKey: String): Flow<Result<Series>>
+    fun getSeriesPopular(): Flow<Result<Series>>
 
-    fun getSeriesOnAir(apiKey: String): Flow<Result<Series>>
+    fun getSeriesOnAir(): Flow<Result<Series>>
 
-    fun getSeriesTopRated(apiKey: String): Flow<Result<Series>>
+    fun getSeriesTopRated(): Flow<Result<Series>>
 }

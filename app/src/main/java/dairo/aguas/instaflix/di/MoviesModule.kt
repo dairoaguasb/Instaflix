@@ -52,8 +52,8 @@ object MoviesModule {
 
     @Provides
     @ViewModelScoped
-    fun moviesRepositoryProvider(movieAPI: MovieAPI): MovieRepository =
-        MovieRepositoryImpl(movieAPI)
+    fun moviesRepositoryProvider(movieAPI: MovieAPI, apiKey: String): MovieRepository =
+        MovieRepositoryImpl(movieAPI, apiKey)
 
     @Provides
     @ViewModelScoped

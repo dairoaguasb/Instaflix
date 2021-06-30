@@ -30,7 +30,7 @@ class SeriesViewModel @Inject constructor(
     val text: LiveData<String> = _text
 
     fun getSeriesPopular() {
-        getSeriesPopularUseCase.invoke("").map { seriesResult ->
+        getSeriesPopularUseCase.invoke().map { seriesResult ->
             if (seriesResult is Result.Success) {
                 Log.d("getSeriesPopular", "${seriesResult.data.series}")
             }
