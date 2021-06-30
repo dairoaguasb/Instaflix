@@ -1,7 +1,7 @@
 package dairo.aguas.instaflix.data.repository
 
-import dairo.aguas.instaflix.domain.model.Movie
-import dairo.aguas.instaflix.domain.model.MovieResponse
+import dairo.aguas.instaflix.data.model.MovieDTO
+import dairo.aguas.instaflix.data.model.MoviesDTO
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.flow
@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.flow
  */
 class MovieRepositoryImpl : MovieRepository {
 
-    override fun getMoviesPopular() = flow<Result<MovieResponse>> {
+    override fun getMoviesPopular() = flow<Result<MoviesDTO>> {
         emit(
             Result.Success(
-                MovieResponse(
+                MoviesDTO(
                     page = 1,
-                    movieList = mutableListOf(
+                    movieDTOList = mutableListOf(
                         movieMock,
                         movieMock,
                         movieMock,
@@ -30,12 +30,12 @@ class MovieRepositoryImpl : MovieRepository {
         )
     }
 
-    override fun getMoviesLatest() = flow<Result<MovieResponse>> {
+    override fun getMoviesLatest() = flow<Result<MoviesDTO>> {
         emit(
             Result.Success(
-                MovieResponse(
+                MoviesDTO(
                     page = 1,
-                    movieList = mutableListOf(
+                    movieDTOList = mutableListOf(
                         movieMock,
                         movieMock,
                         movieMock,
@@ -49,12 +49,12 @@ class MovieRepositoryImpl : MovieRepository {
         )
     }
 
-    override fun getMoviesTopRated() = flow<Result<MovieResponse>> {
+    override fun getMoviesTopRated() = flow<Result<MoviesDTO>> {
         emit(
             Result.Success(
-                MovieResponse(
+                MoviesDTO(
                     page = 1,
-                    movieList = mutableListOf(
+                    movieDTOList = mutableListOf(
                         movieMock,
                         movieMock,
                         movieMock,
@@ -69,7 +69,7 @@ class MovieRepositoryImpl : MovieRepository {
     }
 }
 
-private val movieMock = Movie(
+private val movieMock = MovieDTO(
     id = 123456,
     adult = false,
     backdropPath = "",

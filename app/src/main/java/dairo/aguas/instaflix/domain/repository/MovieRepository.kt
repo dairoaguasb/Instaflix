@@ -1,6 +1,6 @@
 package dairo.aguas.instaflix.domain.repository
 
-import dairo.aguas.instaflix.domain.model.MovieResponse
+import dairo.aguas.instaflix.data.model.MoviesDTO
 import dairo.aguas.instaflix.domain.model.Result
 import kotlinx.coroutines.flow.Flow
 
@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MovieRepository {
 
-    fun getMoviesPopular(): Flow<Result<MovieResponse>>
+    fun getMoviesPopular(): Flow<Result<MoviesDTO>>
 
-    fun getMoviesLatest(): Flow<Result<MovieResponse>>
+    fun getMoviesLatest(): Flow<Result<MoviesDTO>>
 
-    fun getMoviesTopRated(): Flow<Result<MovieResponse>>
+    fun getMoviesTopRated(): Flow<Result<MoviesDTO>>
 }
