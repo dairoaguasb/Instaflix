@@ -1,86 +1,27 @@
 package dairo.aguas.instaflix.data.repository
 
-import dairo.aguas.instaflix.data.model.MovieDTO
-import dairo.aguas.instaflix.data.model.MoviesDTO
+import dairo.aguas.instaflix.data.endpoints.MovieAPI
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.repository.MovieRepository
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 
 /**
  * Created by Dairo Aguas B on 30/06/2021.
  */
-class MovieRepositoryImpl : MovieRepository {
+class MovieRepositoryImpl(private val movieAPI: MovieAPI) : MovieRepository {
 
-    override fun getMoviesPopular() = flow<Result<MoviesDTO>> {
-        emit(
-            Result.Success(
-                MoviesDTO(
-                    page = 1,
-                    movieDTOList = mutableListOf(
-                        movieMock,
-                        movieMock,
-                        movieMock,
-                        movieMock,
-                        movieMock
-                    ),
-                    totalPages = 10,
-                    totalResults = 100
-                )
-            )
-        )
-    }
+    override fun getMoviesPopular(apiKey: String) =
+        movieAPI.getMoviesPopular(apiKey).transform { apiResult ->
+            emit(Result.Success(apiResult.toDomainMovies()))
+        }
 
-    override fun getMoviesLatest() = flow<Result<MoviesDTO>> {
-        emit(
-            Result.Success(
-                MoviesDTO(
-                    page = 1,
-                    movieDTOList = mutableListOf(
-                        movieMock,
-                        movieMock,
-                        movieMock,
-                        movieMock,
-                        movieMock
-                    ),
-                    totalPages = 10,
-                    totalResults = 100
-                )
-            )
-        )
-    }
+    override fun getMoviesLatest(apiKey: String) =
+        movieAPI.getMoviesPopular(apiKey).transform { apiResult ->
+            emit(Result.Success(apiResult.toDomainMovies()))
+        }
 
-    override fun getMoviesTopRated() = flow<Result<MoviesDTO>> {
-        emit(
-            Result.Success(
-                MoviesDTO(
-                    page = 1,
-                    movieDTOList = mutableListOf(
-                        movieMock,
-                        movieMock,
-                        movieMock,
-                        movieMock,
-                        movieMock
-                    ),
-                    totalPages = 10,
-                    totalResults = 100
-                )
-            )
-        )
-    }
+    override fun getMoviesTopRated(apiKey: String) =
+        movieAPI.getMoviesPopular(apiKey).transform { apiResult ->
+            emit(Result.Success(apiResult.toDomainMovies()))
+        }
 }
-
-private val movieMock = MovieDTO(
-    id = 123456,
-    adult = false,
-    backdropPath = "",
-    originalLanguage = "Ingles",
-    originalTitle = "Wonder Woman",
-    overview = "",
-    popularity = 1.0,
-    posterPath = "",
-    releaseDate = "",
-    title = "Wonder Woman",
-    video = true,
-    voteAverage = 7.8,
-    voteCount = 1563
-)
