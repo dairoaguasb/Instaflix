@@ -79,7 +79,9 @@ class MoviesFragment : Fragment() {
                 binding.pbLoading.visibility = View.INVISIBLE
                 moviesAdapter.submitList(moviesState.data)
             }
-            is MoviesState.Error -> TODO()
+            is MoviesState.Error -> {
+
+            }
         }
     }
 }
