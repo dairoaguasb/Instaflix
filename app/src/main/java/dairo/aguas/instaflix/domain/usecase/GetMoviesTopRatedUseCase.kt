@@ -1,6 +1,6 @@
 package dairo.aguas.instaflix.domain.usecase
 
-import dairo.aguas.instaflix.data.model.MoviesDTO
+import dairo.aguas.instaflix.domain.model.Movies
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
@@ -10,5 +10,6 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetMoviesTopRatedUseCase(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(): Flow<Result<MoviesDTO>> = movieRepository.getMoviesTopRated()
+    operator fun invoke(apiKey: String): Flow<Result<Movies>> =
+        movieRepository.getMoviesTopRated(apiKey)
 }
