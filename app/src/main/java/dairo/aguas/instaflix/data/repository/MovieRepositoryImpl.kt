@@ -8,19 +8,22 @@ import kotlinx.coroutines.flow.transform
 /**
  * Created by Dairo Aguas B on 30/06/2021.
  */
-class MovieRepositoryImpl(private val movieAPI: MovieAPI) : MovieRepository {
+class MovieRepositoryImpl(
+    private val movieAPI: MovieAPI,
+    private val apiKey: String
+) : MovieRepository {
 
-    override fun getMoviesPopular(apiKey: String) =
+    override fun getMoviesPopular() =
         movieAPI.getMoviesPopular(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
         }
 
-    override fun getMoviesLatest(apiKey: String) =
+    override fun getMoviesLatest() =
         movieAPI.getMoviesLatest(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
         }
 
-    override fun getMoviesTopRated(apiKey: String) =
+    override fun getMoviesTopRated() =
         movieAPI.getMoviesTopRated(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
         }

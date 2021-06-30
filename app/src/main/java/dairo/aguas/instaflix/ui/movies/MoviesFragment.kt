@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentMoviesBinding
 
+@AndroidEntryPoint
 class MoviesFragment : Fragment() {
 
-    private lateinit var moviesViewModel: MoviesViewModel
+    private val moviesViewModel: MoviesViewModel by viewModels()
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
 
@@ -20,7 +22,6 @@ class MoviesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        moviesViewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
         _binding = FragmentMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -10,6 +10,6 @@ import kotlinx.coroutines.flow.Flow
  */
 class GetSeriesTopRatedUseCase(private val serieRepository: SerieRepository) {
 
-    operator fun invoke(apiKey: String): Flow<Result<Series>> =
-        serieRepository.getSeriesTopRated(apiKey)
+    operator fun invoke(): Flow<Result<Series>> =
+        serieRepository.getSeriesTopRated()
 }

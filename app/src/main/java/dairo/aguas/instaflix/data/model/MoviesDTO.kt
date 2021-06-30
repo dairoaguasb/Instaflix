@@ -8,10 +8,10 @@ import dairo.aguas.instaflix.domain.model.Movies
  * Created by Dairo Aguas B on 30/06/2021.
  */
 data class MoviesDTO(
-    @Json(name = "page") val page: Int,
-    @Json(name = "results") val movies: List<MovieDTO>,
-    @Json(name = "total_pages") val totalPages: Int,
-    @Json(name = "total_results") val totalResults: Int
+    @field:Json(name = "page") val page: Int,
+    @field:Json(name = "results") val movies: List<MovieDTO>,
+    @field:Json(name = "total_pages") val totalPages: Int,
+    @field:Json(name = "total_results") val totalResults: Int
 ) {
     fun toDomainMovies(): Movies {
         return Movies(

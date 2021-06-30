@@ -8,19 +8,22 @@ import kotlinx.coroutines.flow.transform
 /**
  * Created by Dairo Aguas B on 30/06/2021.
  */
-class SeriesRepositoryImpl(private val serieAPI: SerieAPI) : SerieRepository {
+class SeriesRepositoryImpl(
+    private val serieAPI: SerieAPI,
+    private val apiKey: String
+) : SerieRepository {
 
-    override fun getSeriesPopular(apiKey: String) =
+    override fun getSeriesPopular() =
         serieAPI.getSeriesPopular(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainSeries()))
         }
 
-    override fun getSeriesOnAir(apiKey: String) =
+    override fun getSeriesOnAir() =
         serieAPI.getSeriesOnAir(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainSeries()))
         }
 
-    override fun getSeriesTopRated(apiKey: String) =
+    override fun getSeriesTopRated() =
         serieAPI.getSeriesTopRated(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainSeries()))
         }
