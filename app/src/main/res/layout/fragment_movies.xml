@@ -28,6 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
@@ -52,11 +53,11 @@
             app:chipBackgroundColor="@color/gray_900" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipLatest"
+            android:id="@+id/chipUpComing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
-            android:text="@string/movies.category_latest"
+            android:text="@string/movies.category_upcoming"
             android:textColor="@color/white"
             app:checkedIcon="@drawable/ic_check_white"
             app:chipBackgroundColor="@color/gray_900" />

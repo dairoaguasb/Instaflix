@@ -12,7 +12,9 @@ data class MovieViewData(
 ) {
     constructor(movies: Movie) : this(
         id = movies.id,
-        posterPath = movies.posterPath,
+        posterPath = IMAGE_ULR + movies.posterPath,
         title = movies.title
     )
 }
+
+private const val IMAGE_ULR = "https://image.tmdb.org/t/p/w185/"
