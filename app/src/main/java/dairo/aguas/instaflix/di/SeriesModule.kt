@@ -11,6 +11,8 @@ import dairo.aguas.instaflix.domain.repository.SerieRepository
 import dairo.aguas.instaflix.domain.usecase.GetSeriesOnAirUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSeriesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSeriesTopRatedUseCase
+import dairo.aguas.instaflix.ui.series.SeriesViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
 
 /**
@@ -19,6 +21,19 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(ViewModelComponent::class)
 object SeriesModule {
+
+    @Provides
+    fun seriesViewModelProvider(
+        getSeriesOnAirUseCase: GetSeriesOnAirUseCase,
+        getSeriesPopularUseCase: GetSeriesPopularUseCase,
+        getSeriesTopRatedUseCase: GetSeriesTopRatedUseCase,
+        coroutineDispatcher: CoroutineDispatcher
+    ) = SeriesViewModel(
+        getSeriesOnAirUseCase,
+        getSeriesPopularUseCase,
+        getSeriesTopRatedUseCase,
+        coroutineDispatcher
+    )
 
     @Provides
     @ViewModelScoped
