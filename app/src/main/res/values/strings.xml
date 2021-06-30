@@ -6,7 +6,7 @@
 
     <!--    Movies-->
     <string name="movies.category_popular">Popular</string>
-    <string name="movies.category_latest">Últimas</string>
+    <string name="movies.category_upcoming">Proximamente</string>
     <string name="movies.top_rated">Más valoradas</string>
 
     <!--    Series-->

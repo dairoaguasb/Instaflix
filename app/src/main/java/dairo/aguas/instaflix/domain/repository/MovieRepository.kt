@@ -11,7 +11,7 @@ interface MovieRepository {
 
     fun getMoviesPopular(): Flow<Result<Movies>>
 
-    fun getMoviesLatest(): Flow<Result<Movies>>
+    fun getMoviesUpcoming(): Flow<Result<Movies>>
 
     fun getMoviesTopRated(): Flow<Result<Movies>>
 }

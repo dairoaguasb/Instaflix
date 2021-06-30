@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Created by Dairo Aguas B on 30/06/2021.
  */
-class GetMoviesLatestUseCase(private val movieRepository: MovieRepository) {
+class GetMoviesUpcomingUseCase(private val movieRepository: MovieRepository) {
 
     operator fun invoke(): Flow<Result<Movies>> =
-        movieRepository.getMoviesLatest()
+        movieRepository.getMoviesUpcoming()
 }

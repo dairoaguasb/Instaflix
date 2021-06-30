@@ -1,15 +1,13 @@
 package dairo.aguas.instaflix.ui.series
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.usecase.GetSeriesOnAirUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSeriesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSeriesTopRatedUseCase
+import dairo.aguas.instaflix.ui.base.BaseViewModel
+import dairo.aguas.instaflix.ui.model.SerieViewData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -22,26 +20,53 @@ class SeriesViewModel @Inject constructor(
     private val getSeriesPopularUseCase: GetSeriesPopularUseCase,
     private val getSeriesTopRatedUseCase: GetSeriesTopRatedUseCase,
     private val coroutineDispatcher: CoroutineDispatcher
-) : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+) : BaseViewModel<SeriesState>(SeriesState.Loading) {
 
     fun getSeriesPopular() {
         getSeriesPopularUseCase.invoke().map { seriesResult ->
             if (seriesResult is Result.Success) {
-                Log.d("getSeriesPopular", "${seriesResult.data.series}")
+                mutableState.value = SeriesState.Success(
+                    data = seriesResult.data.series.map {
+                        SerieViewData(it)
+                    }
+                )
+            } else if (seriesResult is Result.Failure) {
+                mutableState.value = SeriesState.Error(
+                    seriesResult.exception.message ?: "ERROR DESCONOCIDO"
+                )
             }
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
     fun getSeriesOnAir() {
-        // TODO: 29/06/2021 Implementar el caso de uso
+        getSeriesOnAirUseCase.invoke().map { seriesResult ->
+            if (seriesResult is Result.Success) {
+                mutableState.value = SeriesState.Success(
+                    data = seriesResult.data.series.map {
+                        SerieViewData(it)
+                    }
+                )
+            } else if (seriesResult is Result.Failure) {
+                mutableState.value = SeriesState.Error(
+                    seriesResult.exception.message ?: "ERROR DESCONOCIDO"
+                )
+            }
+        }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
     fun getSeriesTopRated() {
-        // TODO: 29/06/2021 Implementar el caso de uso
+        getSeriesTopRatedUseCase.invoke().map { seriesResult ->
+            if (seriesResult is Result.Success) {
+                mutableState.value = SeriesState.Success(
+                    data = seriesResult.data.series.map {
+                        SerieViewData(it)
+                    }
+                )
+            } else if (seriesResult is Result.Failure) {
+                mutableState.value = SeriesState.Error(
+                    seriesResult.exception.message ?: "ERROR DESCONOCIDO"
+                )
+            }
+        }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 }
