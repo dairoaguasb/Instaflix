@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dashboard">
+    app:startDestination="@+id/navigation_movies">
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_series"
         android:name="dairo.aguas.instaflix.ui.movies.MoviesFragment"
         android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies">
@@ -16,7 +16,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_movies"
         android:name="dairo.aguas.instaflix.ui.series.SeriesFragment"
         android:label="@string/title_series"
         tools:layout="@layout/fragment_series">

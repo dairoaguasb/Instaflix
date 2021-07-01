@@ -14,6 +14,8 @@ import dairo.aguas.instaflix.databinding.FragmentMoviesBinding
 import dairo.aguas.instaflix.ui.adapter.MoviesAdapter
 import dairo.aguas.instaflix.ui.adapter.OnListenerDetail
 import dairo.aguas.instaflix.ui.detail.DetailFragment
+import dairo.aguas.instaflix.ui.utils.gone
+import dairo.aguas.instaflix.ui.utils.visible
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -76,10 +78,10 @@ class MoviesFragment : Fragment(), OnListenerDetail {
     private fun handleMoviesState(moviesState: MoviesState) {
         when (moviesState) {
             is MoviesState.Loading -> {
-                binding.pbLoading.visibility = View.VISIBLE
+                binding.pbLoading.visible()
             }
             is MoviesState.Success -> {
-                binding.pbLoading.visibility = View.INVISIBLE
+                binding.pbLoading.gone()
                 moviesAdapter.submitList(moviesState.data)
             }
             is MoviesState.Error -> {

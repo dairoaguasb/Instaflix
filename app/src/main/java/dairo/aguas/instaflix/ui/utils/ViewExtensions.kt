@@ -1,5 +1,6 @@
 package dairo.aguas.instaflix.ui.utils
 
+import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -16,4 +17,12 @@ fun ImageView.loadImage(urlImage: String) {
                 .error(R.drawable.ic_broken_image)
         )
         .into(this)
+}
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
 }
