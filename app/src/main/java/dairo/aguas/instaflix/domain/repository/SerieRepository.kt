@@ -1,6 +1,7 @@
 package dairo.aguas.instaflix.domain.repository
 
 import dairo.aguas.instaflix.domain.model.Result
+import dairo.aguas.instaflix.domain.model.Serie
 import dairo.aguas.instaflix.domain.model.Series
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +15,6 @@ interface SerieRepository {
     fun getSeriesOnAir(): Flow<Result<Series>>
 
     fun getSeriesTopRated(): Flow<Result<Series>>
+
+    fun getSerieDetail(id: Int): Flow<Result<Serie>>
 }

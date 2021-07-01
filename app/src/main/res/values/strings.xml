@@ -13,4 +13,6 @@
     <string name="series.category_popular">Popular</string>
     <string name="series.category_on_air">Al aire</string>
     <string name="series.top_rated">Más valoradas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

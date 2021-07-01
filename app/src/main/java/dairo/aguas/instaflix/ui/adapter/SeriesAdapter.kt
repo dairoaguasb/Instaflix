@@ -11,10 +11,13 @@ import dairo.aguas.instaflix.ui.viewholder.SeriesViewHolder
 /**
  * Created by Dairo Aguas B on 29/06/2021.
  */
-class SeriesAdapter : ListAdapter<SerieViewData, SeriesViewHolder>(SeriesDiffCallback) {
+class SeriesAdapter(private val onListenerDetail: OnListenerDetail) :
+    ListAdapter<SerieViewData, SeriesViewHolder>(SeriesDiffCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeriesViewHolder {
         return SeriesViewHolder(
-            CardSerieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CardSerieBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            onListenerDetail
         )
     }
 

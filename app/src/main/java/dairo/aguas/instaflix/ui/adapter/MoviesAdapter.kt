@@ -11,10 +11,13 @@ import dairo.aguas.instaflix.ui.viewholder.MoviesViewHolder
 /**
  * Created by Dairo Aguas B on 29/06/2021.
  */
-class MoviesAdapter : ListAdapter<MovieViewData, MoviesViewHolder>(MoviesDiffCallback) {
+class MoviesAdapter(private val onListenerDetail: OnListenerDetail) :
+    ListAdapter<MovieViewData, MoviesViewHolder>(MoviesDiffCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         return MoviesViewHolder(
-            CardMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CardMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            onListenerDetail
         )
     }
 

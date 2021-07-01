@@ -1,5 +1,6 @@
 package dairo.aguas.instaflix.domain.repository
 
+import dairo.aguas.instaflix.domain.model.Movie
 import dairo.aguas.instaflix.domain.model.Movies
 import dairo.aguas.instaflix.domain.model.Result
 import kotlinx.coroutines.flow.Flow
@@ -14,4 +15,6 @@ interface MovieRepository {
     fun getMoviesUpcoming(): Flow<Result<Movies>>
 
     fun getMoviesTopRated(): Flow<Result<Movies>>
+
+    fun getMovieDetail(id: Int): Flow<Result<Movie>>
 }

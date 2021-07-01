@@ -8,9 +8,9 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import dairo.aguas.instaflix.data.endpoints.MovieAPI
 import dairo.aguas.instaflix.data.repository.MovieRepositoryImpl
 import dairo.aguas.instaflix.domain.repository.MovieRepository
-import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
+import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.ui.movies.MoviesViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
