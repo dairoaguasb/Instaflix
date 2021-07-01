@@ -22,7 +22,7 @@ interface MovieAPI {
     fun getMoviesTopRated(@Query("api_key") apiKey: String): Flow<MoviesDTO>
 
     @GET(MOVIE_DETAIL_END_POINT)
-    fun getMovieDetail(@Query("api_key") apiKey: String, @Path("movie_id") id: Int): Flow<MovieDTO>
+    fun getMovieDetail(@Path("movie_id") id: Int, @Query("api_key") apiKey: String): Flow<MovieDTO>
 }
 
 private const val MOVIES_POPULAR_END_POINT = "movie/popular"

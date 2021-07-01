@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentDetailBinding
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
+    private val detailViewModel: DetailViewModel by viewModels()
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -33,7 +37,9 @@ class DetailFragment : Fragment() {
 
     private fun getArgsBundle() {
         DetailFragmentArgs.fromBundle(requireArguments()).let {
-
+            when (it.type) {
+                TYPE_MOVIE -> detailViewModel.getMovieDetail(it.id)
+            }
         }
     }
 

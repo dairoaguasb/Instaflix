@@ -31,7 +31,7 @@ class MovieRepositoryImpl(
         }
 
     override fun getMovieDetail(id: Int) =
-        movieAPI.getMovieDetail(apiKey, id).transform { apiResult ->
+        movieAPI.getMovieDetail(id, apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovie()))
         }
 }
