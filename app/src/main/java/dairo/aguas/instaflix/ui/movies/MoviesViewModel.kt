@@ -8,7 +8,9 @@ import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.MovieViewData
+import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -30,11 +32,9 @@ class MoviesViewModel @Inject constructor(
                         MovieViewData(it)
                     }
                 )
-            } else if (moviesResult is Result.Failure) {
-                mutableState.value = MoviesState.Error(
-                    moviesResult.exception.message ?: "ERROR DESCONICIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = MoviesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
@@ -46,11 +46,9 @@ class MoviesViewModel @Inject constructor(
                         MovieViewData(it)
                     }
                 )
-            } else if (moviesResult is Result.Failure) {
-                mutableState.value = MoviesState.Error(
-                    moviesResult.exception.message ?: "ERROR DESCONICIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = MoviesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
@@ -62,11 +60,9 @@ class MoviesViewModel @Inject constructor(
                         MovieViewData(it)
                     }
                 )
-            } else if (moviesResult is Result.Failure) {
-                mutableState.value = MoviesState.Error(
-                    moviesResult.exception.message ?: "ERROR DESCONICIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = MoviesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 }

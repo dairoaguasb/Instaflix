@@ -13,6 +13,11 @@
     <string name="series.category_popular">Popular</string>
     <string name="series.category_on_air">Al aire</string>
     <string name="series.top_rated">Más valoradas</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    errors-->
+    <string name="error_time_out">El tiempo de la petición ha expirado</string>
+    <string name="error_internal_error_exception">Hemos tenido problemas con el servidor, intentalo nuevamente</string>
+    <string name="error_parsing_error">Error al transformar los datos en la capa de datos</string>
+    <string name="error_internet_connection">Error en la conexión de internet, intentalo de nuevo en un momento</string>
+    <string name="error_some_wrong">Ha ocurrido un error inesperado, por favor intenta más tarde.</string>
 </resources>

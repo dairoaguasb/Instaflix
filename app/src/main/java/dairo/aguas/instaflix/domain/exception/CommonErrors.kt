@@ -4,6 +4,7 @@ import com.google.gson.JsonSyntaxException
 import com.squareup.moshi.JsonDataException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 /**
  * Created by Dairo Aguas B on 1/07/2021.
@@ -32,7 +33,7 @@ open class CommonErrors {
 
     fun manageOtherException(throwable: Throwable): DomainException {
         return when (throwable) {
-            is NoConnectivityException -> NoConnectivityDomainException
+            is UnknownHostException -> NoConnectivityDomainException
             else -> UnknownError
         }
     }
