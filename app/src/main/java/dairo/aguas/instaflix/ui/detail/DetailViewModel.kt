@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.usecase.GetMovieDetailUseCase
+import dairo.aguas.instaflix.domain.usecase.GetSerieDetailUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.DetailViewData
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,12 +18,13 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val movieDetailUseCase: GetMovieDetailUseCase,
+    private val getMovieDetailUseCase: GetMovieDetailUseCase,
+    private val getSerieDetailUseCase: GetSerieDetailUseCase,
     private val coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<DetailState>(DetailState.Loading) {
 
     fun getMovieDetail(id: Int) {
-        movieDetailUseCase.invoke(id).map { movieResult ->
+        getMovieDetailUseCase.invoke(id).map { movieResult ->
             if (movieResult is Result.Success) {
                 mutableState.value = DetailState.Success(
                     data = DetailViewData(movieResult.data)
@@ -30,6 +32,21 @@ class DetailViewModel @Inject constructor(
             } else if (movieResult is Result.Failure) {
                 mutableState.value = DetailState.Error(
                     movieResult.exception.message ?: "ERROR DESCONOCIDO"
+                )
+            }
+        }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
+    }
+
+
+    fun getSerieDetail(id: Int) {
+        getSerieDetailUseCase.invoke(id).map { serieResult ->
+            if (serieResult is Result.Success) {
+                mutableState.value = DetailState.Success(
+                    data = DetailViewData(serieResult.data)
+                )
+            } else if (serieResult is Result.Failure) {
+                mutableState.value = DetailState.Error(
+                    serieResult.exception.message ?: "ERROR DESCONOCIDO"
                 )
             }
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)

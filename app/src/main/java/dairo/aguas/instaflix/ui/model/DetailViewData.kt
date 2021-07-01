@@ -1,6 +1,7 @@
 package dairo.aguas.instaflix.ui.model
 
 import dairo.aguas.instaflix.domain.model.Movie
+import dairo.aguas.instaflix.domain.model.Serie
 
 /**
  * Created by Dairo Aguas B on 1/07/2021.
@@ -20,6 +21,15 @@ data class DetailViewData(
         title = movie.title,
         voteAverage = movie.voteAverage,
         voteCount = movie.voteCount
+    )
+
+    constructor(serie: Serie) : this(
+        id = serie.id,
+        overview = serie.overview,
+        posterPath = IMAGE_ULR + serie.posterPath,
+        title = serie.title,
+        voteAverage = serie.voteAverage,
+        voteCount = serie.voteCount
     )
 }
 

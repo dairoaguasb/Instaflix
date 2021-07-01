@@ -39,6 +39,7 @@ class DetailFragment : Fragment() {
         DetailFragmentArgs.fromBundle(requireArguments()).let {
             when (it.type) {
                 TYPE_MOVIE -> detailViewModel.getMovieDetail(it.id)
+                TYPE_SERIE -> detailViewModel.getSerieDetail(it.id)
             }
         }
     }
