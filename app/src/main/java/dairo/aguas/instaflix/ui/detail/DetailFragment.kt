@@ -16,4 +16,9 @@ class DetailFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
+
+    companion object {
+        const val TYPE_MOVIE = 1
+        const val TYPE_SERIE = 2
+    }
 }

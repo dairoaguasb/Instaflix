@@ -7,18 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentSeriesBinding
+import dairo.aguas.instaflix.ui.adapter.OnListenerDetail
 import dairo.aguas.instaflix.ui.adapter.SeriesAdapter
+import dairo.aguas.instaflix.ui.detail.DetailFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class SeriesFragment : Fragment() {
+class SeriesFragment : Fragment(), OnListenerDetail {
 
     private val seriesViewModel: SeriesViewModel by viewModels()
-    private val seriesAdapter by lazy { SeriesAdapter() }
+    private val seriesAdapter by lazy { SeriesAdapter(this) }
     private var _binding: FragmentSeriesBinding? = null
     private val binding get() = _binding!!
 
@@ -83,5 +86,14 @@ class SeriesFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onClickListener(id: Int) {
+        this.findNavController().navigate(
+            SeriesFragmentDirections.actionNavigationNotificationsToDetailFragment(
+                id,
+                DetailFragment.TYPE_SERIE
+            )
+        )
     }
 }

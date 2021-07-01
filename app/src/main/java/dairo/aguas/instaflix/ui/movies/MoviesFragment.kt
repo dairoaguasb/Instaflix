@@ -7,18 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentMoviesBinding
 import dairo.aguas.instaflix.ui.adapter.MoviesAdapter
+import dairo.aguas.instaflix.ui.adapter.OnListenerDetail
+import dairo.aguas.instaflix.ui.detail.DetailFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(), OnListenerDetail {
 
     private val moviesViewModel: MoviesViewModel by viewModels()
-    private val moviesAdapter by lazy { MoviesAdapter() }
+    private val moviesAdapter by lazy { MoviesAdapter(this) }
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
 
@@ -83,5 +86,14 @@ class MoviesFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onClickListener(id: Int) {
+        this.findNavController().navigate(
+            MoviesFragmentDirections.actionNavigationDashboardToDetailFragment(
+                id,
+                DetailFragment.TYPE_MOVIE
+            )
+        )
     }
 }
