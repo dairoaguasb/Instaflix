@@ -5,11 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentDetailBinding
+import dairo.aguas.instaflix.ui.model.DetailViewData
+import dairo.aguas.instaflix.ui.utils.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
+    private val detailViewModel: DetailViewModel by viewModels()
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -24,6 +33,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getArgsBundle()
+        subscribeToDetailState()
     }
 
     override fun onDestroyView() {
@@ -33,7 +43,39 @@ class DetailFragment : Fragment() {
 
     private fun getArgsBundle() {
         DetailFragmentArgs.fromBundle(requireArguments()).let {
+            when (it.type) {
+                TYPE_MOVIE -> detailViewModel.getMovieDetail(it.id)
+                TYPE_SERIE -> detailViewModel.getSerieDetail(it.id)
+            }
+        }
+    }
 
+    private fun subscribeToDetailState() {
+        detailViewModel.state.onEach(::handleDetailState).launchIn(lifecycleScope)
+    }
+
+    private fun handleDetailState(detailState: DetailState) {
+        when (detailState) {
+            is DetailState.Loading -> {
+                binding.pbLoading.visible()
+            }
+            is DetailState.Success -> {
+                binding.pbLoading.gone()
+                showInfoViews(detailState.data)
+            }
+            is DetailState.Error -> {
+                binding.pbLoading.gone()
+            }
+        }
+    }
+
+    private fun showInfoViews(detailViewData: DetailViewData) {
+        with(binding) {
+            ivPoster.loadImage(detailViewData.backdropPath)
+            tvTitle.text = detailViewData.title
+            ratingBar.format5Start(detailViewData.voteAverage)
+            tvVoteCount.formatVoteCount(detailViewData.voteCount)
+            tvOverview.text = detailViewData.overview
         }
     }
 

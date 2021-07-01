@@ -1,6 +1,7 @@
 package dairo.aguas.instaflix.data.model
 
 import com.squareup.moshi.Json
+import dairo.aguas.instaflix.domain.model.Serie
 
 /**
  * Created by Dairo Aguas B on 30/06/2021.
@@ -15,4 +16,18 @@ data class SerieDTO(
     @field:Json(name = "name") val title: String,
     @field:Json(name = "vote_average") val voteAverage: Double,
     @field:Json(name = "vote_count") val voteCount: Int
-)
+) {
+    fun toDomainSerie(): Serie {
+        return Serie(
+            id = id,
+            backdropPath = backdropPath ?: "",
+            originalLanguage = originalLanguage,
+            overview = overview,
+            popularity = popularity,
+            posterPath = posterPath ?: "",
+            title = title,
+            voteAverage = voteAverage,
+            voteCount = voteCount
+        )
+    }
+}

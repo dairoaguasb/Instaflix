@@ -85,7 +85,7 @@ class MoviesFragment : Fragment(), OnListenerDetail {
                 moviesAdapter.submitList(moviesState.data)
             }
             is MoviesState.Error -> {
-
+                binding.pbLoading.gone()
             }
         }
     }

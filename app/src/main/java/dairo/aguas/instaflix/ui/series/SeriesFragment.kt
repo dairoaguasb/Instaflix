@@ -85,7 +85,7 @@ class SeriesFragment : Fragment(), OnListenerDetail {
                 seriesAdapter.submitList(seriesState.data)
             }
             is SeriesState.Error -> {
-
+                binding.pbLoading.gone()
             }
         }
     }

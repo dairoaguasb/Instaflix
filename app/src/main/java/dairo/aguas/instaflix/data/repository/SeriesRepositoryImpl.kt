@@ -27,4 +27,9 @@ class SeriesRepositoryImpl(
         serieAPI.getSeriesTopRated(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainSeries()))
         }
+
+    override fun getSerieDetail(id: Int) =
+        serieAPI.getSerieDetail(id, apiKey).transform { apiResult ->
+            emit(Result.Success(apiResult.toDomainSerie()))
+        }
 }
