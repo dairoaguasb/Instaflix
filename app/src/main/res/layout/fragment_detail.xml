@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".ui.detail.DetailFragment">
 
     <ImageView
@@ -11,18 +12,53 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="3:4"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         style="@style/Widget.AppCompat.RatingBar.Small"
+        android:progressTint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/purple_200"
         android:layout_marginEnd="@dimen/margin_8dp"
         app:layout_constraintEnd_toStartOf="@+id/tvVoteCount"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvVoteCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ratingBar"
+        tools:text="1568" />
+
+    <TextView
+        android:id="@+id/tvOverview"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -33,26 +69,17 @@
         android:lines="2"
         android:minLines="2"
         android:padding="@dimen/padding_8dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/ivPoster"
         tools:text="Wonder Woman" />
 
-    <TextView
-        android:id="@+id/tvVoteCount"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ratingBar"
-        tools:text="1568" />
-
-    <TextView
-        android:id="@+id/tvOverview"
-        android:layout_width="@dimen/size_0dp"
-        android:layout_height="@dimen/size_0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
