@@ -1,6 +1,7 @@
 package dairo.aguas.instaflix.data.model
 
 import com.squareup.moshi.Json
+import dairo.aguas.instaflix.domain.model.Movie
 
 /**
  * Created by Dairo Aguas B on 30/06/2021.
@@ -19,4 +20,22 @@ data class MovieDTO(
     @field:Json(name = "video") val video: Boolean,
     @field:Json(name = "vote_average") val voteAverage: Double,
     @field:Json(name = "vote_count") val voteCount: Int
-)
+) {
+    fun toDomainMovie(): Movie {
+        return Movie(
+            id = id,
+            adult = adult,
+            backdropPath = backdropPath ?: "",
+            originalLanguage = originalLanguage,
+            originalTitle = originalTitle,
+            overview = overview,
+            popularity = popularity,
+            posterPath = posterPath ?: "",
+            releaseDate = releaseDate ?: "",
+            title = title,
+            video = video,
+            voteAverage = voteAverage,
+            voteCount = voteCount
+        )
+    }
+}

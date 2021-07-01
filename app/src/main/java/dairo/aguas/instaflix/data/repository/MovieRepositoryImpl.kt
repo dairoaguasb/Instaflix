@@ -1,8 +1,10 @@
 package dairo.aguas.instaflix.data.repository
 
 import dairo.aguas.instaflix.data.endpoints.MovieAPI
+import dairo.aguas.instaflix.domain.model.Movie
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.repository.MovieRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
 
 /**
@@ -26,5 +28,10 @@ class MovieRepositoryImpl(
     override fun getMoviesTopRated() =
         movieAPI.getMoviesTopRated(apiKey).transform { apiResult ->
             emit(Result.Success(apiResult.toDomainMovies()))
+        }
+
+    override fun getMovieDetail(id: Int) =
+        movieAPI.getMovieDetail(apiKey, id).transform { apiResult ->
+            emit(Result.Success(apiResult.toDomainMovie()))
         }
 }
