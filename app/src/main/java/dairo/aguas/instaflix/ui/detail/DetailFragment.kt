@@ -11,8 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentDetailBinding
 import dairo.aguas.instaflix.ui.model.DetailViewData
-import dairo.aguas.instaflix.ui.utils.gone
-import dairo.aguas.instaflix.ui.utils.visible
+import dairo.aguas.instaflix.ui.utils.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -62,10 +61,21 @@ class DetailFragment : Fragment() {
             }
             is DetailState.Success -> {
                 binding.pbLoading.gone()
+                showInfoViews(detailState.data)
             }
             is DetailState.Error -> {
                 binding.pbLoading.gone()
             }
+        }
+    }
+
+    private fun showInfoViews(detailViewData: DetailViewData) {
+        with(binding) {
+            ivPoster.loadImage(detailViewData.backdropPath)
+            tvTitle.text = detailViewData.title
+            ratingBar.format5Start(detailViewData.voteAverage)
+            tvVoteCount.formatVoteCount(detailViewData.voteCount)
+            tvOverview.text = detailViewData.overview
         }
     }
 

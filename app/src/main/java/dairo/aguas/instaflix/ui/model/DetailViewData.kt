@@ -9,7 +9,7 @@ import dairo.aguas.instaflix.domain.model.Serie
 data class DetailViewData(
     val id: Int,
     val overview: String,
-    val posterPath: String,
+    val backdropPath: String,
     val title: String,
     val voteAverage: Double,
     val voteCount: Int,
@@ -17,7 +17,7 @@ data class DetailViewData(
     constructor(movie: Movie) : this(
         id = movie.id,
         overview = movie.overview,
-        posterPath = IMAGE_ULR + movie.posterPath,
+        backdropPath = IMAGE_ULR + movie.backdropPath,
         title = movie.title,
         voteAverage = movie.voteAverage,
         voteCount = movie.voteCount
@@ -26,7 +26,7 @@ data class DetailViewData(
     constructor(serie: Serie) : this(
         id = serie.id,
         overview = serie.overview,
-        posterPath = IMAGE_ULR + serie.posterPath,
+        backdropPath = IMAGE_ULR + serie.backdropPath,
         title = serie.title,
         voteAverage = serie.voteAverage,
         voteCount = serie.voteCount
