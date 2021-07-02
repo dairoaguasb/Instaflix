@@ -30,6 +30,10 @@ class DetailViewModel @Inject constructor(
                 mutableState.value = DetailState.Success(
                     data = DetailViewData(movieResult.data)
                 )
+            } else if (movieResult is Result.Failure) {
+                mutableState.value = DetailState.Error(
+                    resource = manageException(movieResult.domainException)
+                )
             }
         }.handleViewModelExceptions {
             mutableState.value = DetailState.Error(manageException(it))
@@ -42,6 +46,10 @@ class DetailViewModel @Inject constructor(
             if (serieResult is Result.Success) {
                 mutableState.value = DetailState.Success(
                     data = DetailViewData(serieResult.data)
+                )
+            } else if (serieResult is Result.Failure) {
+                mutableState.value = DetailState.Error(
+                    resource = manageException(serieResult.domainException)
                 )
             }
         }.handleViewModelExceptions {

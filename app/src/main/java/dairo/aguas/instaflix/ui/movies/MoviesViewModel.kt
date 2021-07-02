@@ -35,6 +35,10 @@ class MoviesViewModel @Inject constructor(
                         MovieViewData(it)
                     }
                 )
+            } else if (moviesResult is Result.Failure) {
+                mutableState.value = MoviesState.Error(
+                    resource = manageException(moviesResult.domainException)
+                )
             }
         }.handleViewModelExceptions {
             mutableState.value = MoviesState.Error(manageException(it))
@@ -49,6 +53,10 @@ class MoviesViewModel @Inject constructor(
                         MovieViewData(it)
                     }
                 )
+            } else if (moviesResult is Result.Failure) {
+                mutableState.value = MoviesState.Error(
+                    resource = manageException(moviesResult.domainException)
+                )
             }
         }.handleViewModelExceptions {
             mutableState.value = MoviesState.Error(manageException(it))
@@ -62,6 +70,10 @@ class MoviesViewModel @Inject constructor(
                     data = moviesResult.data.movies.map {
                         MovieViewData(it)
                     }
+                )
+            } else if (moviesResult is Result.Failure) {
+                mutableState.value = MoviesState.Error(
+                    resource = manageException(moviesResult.domainException)
                 )
             }
         }.handleViewModelExceptions {

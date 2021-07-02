@@ -8,7 +8,6 @@ import dairo.aguas.instaflix.domain.usecase.GetSeriesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSeriesTopRatedUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.SerieViewData
-import dairo.aguas.instaflix.ui.movies.MoviesState
 import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
@@ -36,6 +35,10 @@ class SeriesViewModel @Inject constructor(
                         SerieViewData(it)
                     }
                 )
+            } else if (seriesResult is Result.Failure) {
+                mutableState.value = SeriesState.Error(
+                    resource = manageException(seriesResult.domainException)
+                )
             }
         }.handleViewModelExceptions {
             mutableState.value = SeriesState.Error(manageException(it))
@@ -50,6 +53,10 @@ class SeriesViewModel @Inject constructor(
                         SerieViewData(it)
                     }
                 )
+            } else if (seriesResult is Result.Failure) {
+                mutableState.value = SeriesState.Error(
+                    resource = manageException(seriesResult.domainException)
+                )
             }
         }.handleViewModelExceptions {
             mutableState.value = SeriesState.Error(manageException(it))
@@ -63,6 +70,10 @@ class SeriesViewModel @Inject constructor(
                     data = seriesResult.data.series.map {
                         SerieViewData(it)
                     }
+                )
+            } else if (seriesResult is Result.Failure) {
+                mutableState.value = SeriesState.Error(
+                    resource = manageException(seriesResult.domainException)
                 )
             }
         }.handleViewModelExceptions {
