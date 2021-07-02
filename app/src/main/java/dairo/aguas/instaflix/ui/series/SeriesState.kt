@@ -11,5 +11,5 @@ sealed class SeriesState {
 
     class Success(val data: List<SerieViewData>) : SeriesState()
 
-    class Error(val error: String) : SeriesState()
+    class Error(val resource: Int) : SeriesState()
 }

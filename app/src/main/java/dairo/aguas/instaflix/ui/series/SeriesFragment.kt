@@ -14,6 +14,7 @@ import dairo.aguas.instaflix.databinding.FragmentSeriesBinding
 import dairo.aguas.instaflix.ui.adapter.OnListenerDetail
 import dairo.aguas.instaflix.ui.adapter.SeriesAdapter
 import dairo.aguas.instaflix.ui.detail.DetailFragment
+import dairo.aguas.instaflix.ui.dialog.BottomInformativeSheetDialog
 import dairo.aguas.instaflix.ui.utils.gone
 import dairo.aguas.instaflix.ui.utils.visible
 import kotlinx.coroutines.flow.launchIn
@@ -86,6 +87,7 @@ class SeriesFragment : Fragment(), OnListenerDetail {
             }
             is SeriesState.Error -> {
                 binding.pbLoading.gone()
+                showInformativeDialog(getString(seriesState.resource))
             }
         }
     }
@@ -97,5 +99,10 @@ class SeriesFragment : Fragment(), OnListenerDetail {
                 DetailFragment.TYPE_SERIE
             )
         )
+    }
+
+    private fun showInformativeDialog(description: String) {
+        val dialog = BottomInformativeSheetDialog(description)
+        dialog.show(childFragmentManager, SeriesFragment::class.simpleName)
     }
 }
