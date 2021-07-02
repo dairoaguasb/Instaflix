@@ -11,5 +11,7 @@ sealed class MoviesState {
 
     class Success(val data: List<MovieViewData>) : MoviesState()
 
-    class Error(val error: String) : MoviesState()
+    class Error(val resource: Int) : MoviesState()
+
+    object Empty : MoviesState()
 }

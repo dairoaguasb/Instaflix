@@ -8,6 +8,8 @@ import dairo.aguas.instaflix.domain.usecase.GetSeriesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSeriesTopRatedUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.SerieViewData
+import dairo.aguas.instaflix.ui.movies.MoviesState
+import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -22,6 +24,10 @@ class SeriesViewModel @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<SeriesState>(SeriesState.Loading) {
 
+    init {
+        getSeriesPopular()
+    }
+
     fun getSeriesPopular() {
         getSeriesPopularUseCase.invoke().map { seriesResult ->
             if (seriesResult is Result.Success) {
@@ -30,11 +36,9 @@ class SeriesViewModel @Inject constructor(
                         SerieViewData(it)
                     }
                 )
-            } else if (seriesResult is Result.Failure) {
-                mutableState.value = SeriesState.Error(
-                    seriesResult.exception.message ?: "ERROR DESCONOCIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = SeriesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
@@ -46,11 +50,9 @@ class SeriesViewModel @Inject constructor(
                         SerieViewData(it)
                     }
                 )
-            } else if (seriesResult is Result.Failure) {
-                mutableState.value = SeriesState.Error(
-                    seriesResult.exception.message ?: "ERROR DESCONOCIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = SeriesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
@@ -62,11 +64,13 @@ class SeriesViewModel @Inject constructor(
                         SerieViewData(it)
                     }
                 )
-            } else if (seriesResult is Result.Failure) {
-                mutableState.value = SeriesState.Error(
-                    seriesResult.exception.message ?: "ERROR DESCONOCIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = SeriesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
+    }
+
+    fun emptyState() {
+        mutableState.value = SeriesState.Empty
     }
 }

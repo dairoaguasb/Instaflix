@@ -7,6 +7,7 @@ import dairo.aguas.instaflix.domain.usecase.GetMovieDetailUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSerieDetailUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.DetailViewData
+import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -29,11 +30,9 @@ class DetailViewModel @Inject constructor(
                 mutableState.value = DetailState.Success(
                     data = DetailViewData(movieResult.data)
                 )
-            } else if (movieResult is Result.Failure) {
-                mutableState.value = DetailState.Error(
-                    movieResult.exception.message ?: "ERROR DESCONOCIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = DetailState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 
@@ -44,11 +43,9 @@ class DetailViewModel @Inject constructor(
                 mutableState.value = DetailState.Success(
                     data = DetailViewData(serieResult.data)
                 )
-            } else if (serieResult is Result.Failure) {
-                mutableState.value = DetailState.Error(
-                    serieResult.exception.message ?: "ERROR DESCONOCIDO"
-                )
             }
+        }.handleViewModelExceptions {
+            mutableState.value = DetailState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 }

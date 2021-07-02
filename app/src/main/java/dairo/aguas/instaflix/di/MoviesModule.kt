@@ -6,7 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import dairo.aguas.instaflix.data.endpoints.MovieAPI
+import dairo.aguas.instaflix.data.repository.ExceptionMovieRepositoryImpl
 import dairo.aguas.instaflix.data.repository.MovieRepositoryImpl
+import dairo.aguas.instaflix.domain.repository.DomainExceptionRepository
 import dairo.aguas.instaflix.domain.repository.MovieRepository
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
@@ -52,11 +54,20 @@ object MoviesModule {
 
     @Provides
     @ViewModelScoped
-    fun moviesRepositoryProvider(movieAPI: MovieAPI, apiKey: String): MovieRepository =
-        MovieRepositoryImpl(movieAPI, apiKey)
+    fun moviesRepositoryProvider(
+        movieAPI: MovieAPI,
+        apiKey: String,
+        exceptionMovie: DomainExceptionRepository
+    ): MovieRepository =
+        MovieRepositoryImpl(movieAPI, apiKey, exceptionMovie)
 
     @Provides
     @ViewModelScoped
     fun movieAPIProvide(retrofit: Retrofit): MovieAPI =
         retrofit.create(MovieAPI::class.java)
+
+    @Provides
+    @ViewModelScoped
+    fun exceptionMovieRepositoryProvide(): DomainExceptionRepository =
+        ExceptionMovieRepositoryImpl()
 }

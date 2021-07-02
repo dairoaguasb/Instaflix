@@ -14,6 +14,7 @@ import dairo.aguas.instaflix.databinding.FragmentMoviesBinding
 import dairo.aguas.instaflix.ui.adapter.MoviesAdapter
 import dairo.aguas.instaflix.ui.adapter.OnListenerDetail
 import dairo.aguas.instaflix.ui.detail.DetailFragment
+import dairo.aguas.instaflix.ui.dialog.BottomInformativeSheetDialog
 import dairo.aguas.instaflix.ui.utils.gone
 import dairo.aguas.instaflix.ui.utils.visible
 import kotlinx.coroutines.flow.launchIn
@@ -38,7 +39,6 @@ class MoviesFragment : Fragment(), OnListenerDetail {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        moviesViewModel.getMoviesPopular()
         subscribeToMoviesState()
         setupAdapter()
         setOptionListener()
@@ -46,6 +46,7 @@ class MoviesFragment : Fragment(), OnListenerDetail {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        moviesViewModel.emptyState()
         _binding = null
     }
 
@@ -86,6 +87,10 @@ class MoviesFragment : Fragment(), OnListenerDetail {
             }
             is MoviesState.Error -> {
                 binding.pbLoading.gone()
+                showInformativeDialog(getString(moviesState.resource))
+            }
+            is MoviesState.Empty -> {
+                binding.pbLoading.gone()
             }
         }
     }
@@ -97,5 +102,10 @@ class MoviesFragment : Fragment(), OnListenerDetail {
                 DetailFragment.TYPE_MOVIE
             )
         )
+    }
+
+    private fun showInformativeDialog(description: String) {
+        val dialog = BottomInformativeSheetDialog(description)
+        dialog.show(childFragmentManager, MoviesFragment::class.simpleName)
     }
 }
