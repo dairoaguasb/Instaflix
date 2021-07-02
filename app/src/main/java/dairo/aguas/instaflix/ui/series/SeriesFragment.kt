@@ -39,7 +39,6 @@ class SeriesFragment : Fragment(), OnListenerDetail {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        seriesViewModel.getSeriesPopular()
         subscribeToSeriesState()
         setupAdapter()
         setOptionListener()
@@ -47,6 +46,7 @@ class SeriesFragment : Fragment(), OnListenerDetail {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        seriesViewModel.emptyState()
         _binding = null
     }
 
@@ -88,6 +88,9 @@ class SeriesFragment : Fragment(), OnListenerDetail {
             is SeriesState.Error -> {
                 binding.pbLoading.gone()
                 showInformativeDialog(getString(seriesState.resource))
+            }
+            is SeriesState.Empty -> {
+                binding.pbLoading.gone()
             }
         }
     }

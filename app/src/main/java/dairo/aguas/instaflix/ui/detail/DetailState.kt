@@ -11,5 +11,5 @@ sealed class DetailState {
 
     class Success(val data: DetailViewData) : DetailState()
 
-    class Error(val error: String) : DetailState()
+    class Error(val resource: Int) : DetailState()
 }

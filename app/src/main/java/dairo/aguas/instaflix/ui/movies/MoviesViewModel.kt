@@ -3,14 +3,13 @@ package dairo.aguas.instaflix.ui.movies
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dairo.aguas.instaflix.domain.model.Result
-import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
+import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.MovieViewData
 import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -23,6 +22,10 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesTopRatedUseCase: GetMoviesTopRatedUseCase,
     private val coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<MoviesState>(MoviesState.Loading) {
+
+    init {
+        getMoviesPopular()
+    }
 
     fun getMoviesPopular() {
         getMoviesPopularUseCase.invoke().map { moviesResult ->
@@ -64,5 +67,9 @@ class MoviesViewModel @Inject constructor(
         }.handleViewModelExceptions {
             mutableState.value = MoviesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
+    }
+
+    fun emptyState() {
+        mutableState.value = MoviesState.Empty
     }
 }

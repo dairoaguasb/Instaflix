@@ -1,15 +1,15 @@
 package dairo.aguas.instaflix.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.databinding.FragmentDetailBinding
+import dairo.aguas.instaflix.ui.dialog.BottomInformativeSheetDialog
 import dairo.aguas.instaflix.ui.model.DetailViewData
 import dairo.aguas.instaflix.ui.utils.*
 import kotlinx.coroutines.flow.launchIn
@@ -65,6 +65,7 @@ class DetailFragment : Fragment() {
             }
             is DetailState.Error -> {
                 binding.pbLoading.gone()
+                showInformativeDialog(getString(detailState.resource))
             }
         }
     }
@@ -77,6 +78,11 @@ class DetailFragment : Fragment() {
             tvVoteCount.formatVoteCount(detailViewData.voteCount)
             tvOverview.text = detailViewData.overview
         }
+    }
+
+    private fun showInformativeDialog(description: String) {
+        val dialog = BottomInformativeSheetDialog(description)
+        dialog.show(childFragmentManager, DetailFragment::class.simpleName)
     }
 
     companion object {

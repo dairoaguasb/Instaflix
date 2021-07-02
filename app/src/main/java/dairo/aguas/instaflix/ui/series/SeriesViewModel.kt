@@ -24,6 +24,10 @@ class SeriesViewModel @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<SeriesState>(SeriesState.Loading) {
 
+    init {
+        getSeriesPopular()
+    }
+
     fun getSeriesPopular() {
         getSeriesPopularUseCase.invoke().map { seriesResult ->
             if (seriesResult is Result.Success) {
@@ -64,5 +68,9 @@ class SeriesViewModel @Inject constructor(
         }.handleViewModelExceptions {
             mutableState.value = SeriesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
+    }
+
+    fun emptyState() {
+        mutableState.value = SeriesState.Empty
     }
 }
