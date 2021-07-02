@@ -7,7 +7,7 @@ import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.model.Serie
 import dairo.aguas.instaflix.domain.usecase.GetMovieDetailUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSerieDetailUseCase
-import dairo.aguas.instaflix.mock.MoviesMock
+import dairo.aguas.instaflix.mock.Mocks
 import dairo.aguas.instaflix.utils.MainCoroutineRule
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -51,7 +51,7 @@ class DetailViewModelTest {
     @Test
     fun whenGetMovieDetailIsCalledShouldReturnSuccessState() = mainCoroutineRule.runBlockingTest {
         val randomNumber = (0..100).random()
-        val flowMovie = flowOf(Result.Success(MoviesMock.MOVIE_MOCK))
+        val flowMovie = flowOf(Result.Success(Mocks.MOVIE_MOCK))
 
         //given
         coEvery { getMovieDetailUseCase.invoke(randomNumber) } returns flowMovie
@@ -123,7 +123,7 @@ class DetailViewModelTest {
     @Test
     fun whenGetSerieDetailIsCalledShouldReturnSuccessState() = mainCoroutineRule.runBlockingTest {
         val randomNumber = (0..100).random()
-        val flowSeries = flowOf(Result.Success(MoviesMock.SERIE_MOCK))
+        val flowSeries = flowOf(Result.Success(Mocks.SERIE_MOCK))
 
         //given
         coEvery { getSerieDetailUseCase.invoke(randomNumber) } returns flowSeries
