@@ -10,7 +10,7 @@ import org.junit.Test
 class MovieViewDataTest {
 
     @Test
-    fun givenADomainMovieShouldMapToMovieViewData() {
+    fun givenDomainMovieShouldMapToMovieViewData() {
         val domainMovie = Mocks.MOVIE_MOCK
         val movieViewData = MovieViewData(domainMovie)
 
