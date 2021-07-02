@@ -8,7 +8,7 @@
     tools:context=".ui.series.SeriesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMovies"
+        android:id="@+id/rvSeries"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"

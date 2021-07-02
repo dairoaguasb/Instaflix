@@ -55,7 +55,7 @@ class SeriesFragment : Fragment(), OnListenerDetail {
     }
 
     private fun setupAdapter() {
-        binding.rvMovies.apply {
+        binding.rvSeries.apply {
             adapter = seriesAdapter
         }
     }
@@ -83,7 +83,9 @@ class SeriesFragment : Fragment(), OnListenerDetail {
             }
             is SeriesState.Success -> {
                 binding.pbLoading.gone()
-                seriesAdapter.submitList(seriesState.data)
+                seriesAdapter.submitList(seriesState.data){
+                    binding.rvSeries.scrollToPosition(0)
+                }
             }
             is SeriesState.Error -> {
                 binding.pbLoading.gone()

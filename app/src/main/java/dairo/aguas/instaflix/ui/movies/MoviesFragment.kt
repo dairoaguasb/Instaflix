@@ -83,7 +83,10 @@ class MoviesFragment : Fragment(), OnListenerDetail {
             }
             is MoviesState.Success -> {
                 binding.pbLoading.gone()
-                moviesAdapter.submitList(moviesState.data)
+                moviesAdapter.submitList(moviesState.data) {
+                    binding.rvMovies.scrollToPosition(0)
+                }
+                moviesAdapter
             }
             is MoviesState.Error -> {
                 binding.pbLoading.gone()

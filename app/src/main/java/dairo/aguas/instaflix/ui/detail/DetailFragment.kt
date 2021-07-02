@@ -1,5 +1,6 @@
 package dairo.aguas.instaflix.ui.detail
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +78,15 @@ class DetailFragment : Fragment() {
             ratingBar.format5Start(detailViewData.voteAverage)
             tvVoteCount.formatVoteCount(detailViewData.voteCount)
             tvOverview.text = detailViewData.overview
+            animationRatingBar()
         }
+    }
+
+    private fun animationRatingBar() {
+        val current = binding.ratingBar.rating
+        val anim = ObjectAnimator.ofFloat(binding.ratingBar, "rating", 0f, current)
+        anim.duration = TOTAL_MS
+        anim.start()
     }
 
     private fun showInformativeDialog(description: String) {
@@ -88,5 +97,6 @@ class DetailFragment : Fragment() {
     companion object {
         const val TYPE_MOVIE = 1
         const val TYPE_SERIE = 2
+        private const val TOTAL_MS = 1000L
     }
 }
