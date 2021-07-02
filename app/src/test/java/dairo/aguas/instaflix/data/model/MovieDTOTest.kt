@@ -1,5 +1,6 @@
 package dairo.aguas.instaflix.data.model
 
+import dairo.aguas.instaflix.mock.Mocks
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -10,21 +11,7 @@ class MovieDTOTest {
 
     @Test
     fun givenMovieDTOShouldMapToDomain() {
-        val movieDTO = MovieDTO(
-            id = 1,
-            adult = false,
-            backdropPath = "backdropPath",
-            originalLanguage = "originalLanguage",
-            originalTitle = "originalTitle",
-            overview = "overview",
-            popularity = 10.0,
-            posterPath = "posterPath",
-            releaseDate = "releaseDate",
-            title = "title",
-            video = false,
-            voteAverage = 1000.0,
-            voteCount = 1000
-        )
+        val movieDTO = Mocks.MOVIE_DTO_MOCK
 
         val domainMovie = movieDTO.toDomainMovie()
 
