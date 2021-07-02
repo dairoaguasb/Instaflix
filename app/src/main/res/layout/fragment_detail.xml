@@ -70,7 +70,7 @@
         android:minLines="2"
         android:padding="@dimen/padding_8dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_16sp"
+        android:textSize="@dimen/text_16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/ivPoster"
         tools:text="Wonder Woman" />
