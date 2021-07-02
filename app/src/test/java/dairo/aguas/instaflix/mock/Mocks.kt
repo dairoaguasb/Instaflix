@@ -3,6 +3,7 @@ package dairo.aguas.instaflix.mock
 import dairo.aguas.instaflix.domain.model.Movie
 import dairo.aguas.instaflix.domain.model.Movies
 import dairo.aguas.instaflix.domain.model.Serie
+import dairo.aguas.instaflix.domain.model.Series
 
 /**
  * Created by Dairo Aguas B on 2/07/2021.
@@ -40,6 +41,13 @@ object Mocks {
     val MOVIES_MOCK = Movies(
         page = 1,
         movies = mutableListOf(MOVIE_MOCK, MOVIE_MOCK),
+        totalPages = 10,
+        totalResults = 1000
+    )
+
+    val SERIES_MOCK = Series(
+        page = 1,
+        series = mutableListOf(SERIE_MOCK, SERIE_MOCK),
         totalPages = 10,
         totalResults = 1000
     )
