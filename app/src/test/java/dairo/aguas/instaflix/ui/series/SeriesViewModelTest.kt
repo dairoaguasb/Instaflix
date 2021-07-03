@@ -42,18 +42,12 @@ class SeriesViewModelTest {
 
     @Before
     fun setup() {
-        init()
         seriesViewModel = SeriesViewModel(
             getSeriesOnAirUseCase,
             getSeriesPopularUseCase,
             getSeriesTopRatedUseCase,
             mainCoroutineRule.testDispatcher
         )
-    }
-
-    private fun init() {
-        val flowSeries = flowOf(Result.Success(Mocks.SERIES_MOCK))
-        coEvery { getSeriesPopularUseCase.invoke() } returns flowSeries
     }
 
     @Test
@@ -72,8 +66,9 @@ class SeriesViewModelTest {
         seriesViewModel.getSeriesPopular()
 
         //then
+        assertTrue(result[0] is SeriesState.Loading)
         assertTrue(result[1] is SeriesState.Success)
-        coVerify(exactly = 2) { getSeriesPopularUseCase.invoke() }
+        coVerify(exactly = 1) { getSeriesPopularUseCase.invoke() }
         jop.cancel()
     }
 
@@ -93,8 +88,9 @@ class SeriesViewModelTest {
         seriesViewModel.getSeriesPopular()
 
         //then
+        assertTrue(result[0] is SeriesState.Loading)
         assertTrue(result[1] is SeriesState.Error)
-        coVerify(exactly = 2) { getSeriesPopularUseCase.invoke() }
+        coVerify(exactly = 1) { getSeriesPopularUseCase.invoke() }
         jop.cancel()
     }
 
@@ -116,8 +112,9 @@ class SeriesViewModelTest {
         seriesViewModel.getSeriesPopular()
 
         //then
+        assertTrue(result[0] is SeriesState.Loading)
         assertTrue(result[1] is SeriesState.Error)
-        coVerify(exactly = 2) { getSeriesPopularUseCase.invoke() }
+        coVerify(exactly = 1) { getSeriesPopularUseCase.invoke() }
         jop.cancel()
     }
 }

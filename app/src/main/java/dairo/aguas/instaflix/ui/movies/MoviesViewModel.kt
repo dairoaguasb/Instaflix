@@ -23,10 +23,6 @@ class MoviesViewModel @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<MoviesState>(MoviesState.Loading) {
 
-    init {
-        getMoviesPopular()
-    }
-
     fun getMoviesPopular() {
         getMoviesPopularUseCase.invoke().map { moviesResult ->
             if (moviesResult is Result.Success) {

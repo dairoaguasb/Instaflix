@@ -51,6 +51,8 @@ class MoviesFragment : Fragment(), OnListenerDetail {
     }
 
     private fun subscribeToMoviesState() {
+        if (moviesAdapter.currentList.isEmpty())
+            moviesViewModel.getMoviesPopular()
         moviesViewModel.state.onEach(::handleMoviesState).launchIn(lifecycleScope)
     }
 

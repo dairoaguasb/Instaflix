@@ -43,18 +43,12 @@ class MoviesViewModelTest {
 
     @Before
     fun setup() {
-        init()
         moviesViewModel = MoviesViewModel(
             getMoviesUpcomingUseCase,
             getMoviesPopularUseCase,
             getMoviesTopRatedUseCase,
             mainCoroutineRule.testDispatcher
         )
-    }
-
-    private fun init() {
-        val flowMovies = flowOf(Result.Success(Mocks.MOVIES_MOCK))
-        coEvery { getMoviesPopularUseCase.invoke() } returns flowMovies
     }
 
     @Test
@@ -73,8 +67,9 @@ class MoviesViewModelTest {
         moviesViewModel.getMoviesPopular()
 
         //then
+        assertTrue(result[0] is MoviesState.Loading)
         assertTrue(result[1] is MoviesState.Success)
-        coVerify(exactly = 2) { getMoviesPopularUseCase.invoke() }
+        coVerify(exactly = 1) { getMoviesPopularUseCase.invoke() }
         jop.cancel()
     }
 
@@ -94,8 +89,9 @@ class MoviesViewModelTest {
         moviesViewModel.getMoviesPopular()
 
         //then
+        assertTrue(result[0] is MoviesState.Loading)
         assertTrue(result[1] is MoviesState.Error)
-        coVerify(exactly = 2) { getMoviesPopularUseCase.invoke() }
+        coVerify(exactly = 1) { getMoviesPopularUseCase.invoke() }
         jop.cancel()
     }
 
@@ -117,8 +113,9 @@ class MoviesViewModelTest {
         moviesViewModel.getMoviesPopular()
 
         //then
+        assertTrue(result[0] is MoviesState.Loading)
         assertTrue(result[1] is MoviesState.Error)
-        coVerify(exactly = 2) { getMoviesPopularUseCase.invoke() }
+        coVerify(exactly = 1) { getMoviesPopularUseCase.invoke() }
         jop.cancel()
     }
 }
