@@ -23,9 +23,6 @@ class SeriesViewModel @Inject constructor(
     private val coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<SeriesState>(SeriesState.Loading) {
 
-    init {
-        getSeriesPopular()
-    }
 
     fun getSeriesPopular() {
         getSeriesPopularUseCase.invoke().map { seriesResult ->

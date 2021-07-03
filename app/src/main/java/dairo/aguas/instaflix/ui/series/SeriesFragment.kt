@@ -51,6 +51,8 @@ class SeriesFragment : Fragment(), OnListenerDetail {
     }
 
     private fun subscribeToSeriesState() {
+        if(seriesAdapter.currentList.isEmpty())
+            seriesViewModel.getSeriesPopular()
         seriesViewModel.state.onEach(::handleSeriesState).launchIn(lifecycleScope)
     }
 
