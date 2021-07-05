@@ -20,3 +20,6 @@ _Prueba de Android Developer para Instaleap_
   * Material Components
 * Architecture
   * MVVM + Clean Arquitecture
+
+
+![picture](preview.gif)
