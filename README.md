@@ -1,7 +1,5 @@
 # Instaflix
 
-_Prueba de Android Developer para Instaleap_
-
 # Herramientas utilizadas
 * Kotlin + Coroutines + Flow
 * Retrofit
