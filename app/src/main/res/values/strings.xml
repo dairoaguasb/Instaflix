@@ -25,4 +25,6 @@
     <string name="dialog.informative.accept">Aceptar</string>
     <string name="dialog.informative.title">Importante</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="movies">Peliculas</string>
+    <string name="series">Series</string>
 </resources>
