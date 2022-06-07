@@ -1,7 +1,7 @@
 package dairo.aguas.instaflix.domain.exception
 
+import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
-import com.squareup.moshi.JsonDataException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -25,7 +25,7 @@ open class CommonErrors {
 
     fun manageParsingExceptions(throwable: Throwable): DomainException {
         return when (throwable) {
-            is JsonDataException -> ParseException
+            is JsonParseException -> ParseException
             is JsonSyntaxException -> ParseException
             else -> manageOtherException(throwable)
         }

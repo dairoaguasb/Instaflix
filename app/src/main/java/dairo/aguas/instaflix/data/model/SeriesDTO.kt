@@ -1,6 +1,6 @@
 package dairo.aguas.instaflix.data.model
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import dairo.aguas.instaflix.domain.model.Serie
 import dairo.aguas.instaflix.domain.model.Series
 
@@ -8,10 +8,10 @@ import dairo.aguas.instaflix.domain.model.Series
  * Created by Dairo Aguas B on 30/06/2021.
  */
 data class SeriesDTO(
-    @field:Json(name = "page") val page: Int,
-    @field:Json(name = "results") val series: List<SerieDTO>,
-    @field:Json(name = "total_pages") val totalPages: Int,
-    @field:Json(name = "total_results") val totalResults: Int
+    @SerializedName("page") val page: Int,
+    @SerializedName("results") val series: List<SerieDTO>,
+    @SerializedName("total_pages") val totalPages: Int,
+    @SerializedName("total_results") val totalResults: Int
 ) {
     fun toDomainSeries(): Series {
         return Series(

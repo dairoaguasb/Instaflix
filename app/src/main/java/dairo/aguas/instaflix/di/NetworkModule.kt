@@ -1,19 +1,17 @@
 package dairo.aguas.instaflix.di
 
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dairo.aguas.instaflix.BuildConfig
-import dairo.aguas.instaflix.data.network.FlowCallAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import okhttp3.Dispatcher
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -27,10 +25,6 @@ object NetworkModule {
     @Provides
     @Singleton
     fun coroutineDispatcherProvider() = Dispatchers.IO
-
-    @Provides
-    @Singleton
-    fun moshiProvider(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Singleton
@@ -58,10 +52,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun retrofitProvider(moshi: Moshi, client: OkHttpClient): Retrofit {
+    fun retrofitProvider(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .addCallAdapterFactory(FlowCallAdapterFactory.create())
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .baseUrl(BASE_URL)
             .build()

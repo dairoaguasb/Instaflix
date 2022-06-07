@@ -1,25 +1,25 @@
 package dairo.aguas.instaflix.data.model
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import dairo.aguas.instaflix.domain.model.Movie
 
 /**
  * Created by Dairo Aguas B on 30/06/2021.
  */
 data class MovieDTO(
-    @field:Json(name = "id") val id: Int,
-    @field:Json(name = "adult") val adult: Boolean,
-    @field:Json(name = "backdrop_path") val backdropPath: String?,
-    @field:Json(name = "original_language") val originalLanguage: String,
-    @field:Json(name = "original_title") val originalTitle: String,
-    @field:Json(name = "overview") val overview: String,
-    @field:Json(name = "popularity") val popularity: Double,
-    @field:Json(name = "poster_path") val posterPath: String?,
-    @field:Json(name = "release_date") val releaseDate: String?,
-    @field:Json(name = "title") val title: String,
-    @field:Json(name = "video") val video: Boolean,
-    @field:Json(name = "vote_average") val voteAverage: Double,
-    @field:Json(name = "vote_count") val voteCount: Int
+    @SerializedName("id") val id: Int,
+    @SerializedName("adult") val adult: Boolean,
+    @SerializedName("backdrop_path") val backdropPath: String?,
+    @SerializedName("original_language") val originalLanguage: String,
+    @SerializedName("original_title") val originalTitle: String,
+    @SerializedName("overview") val overview: String,
+    @SerializedName("popularity") val popularity: Double,
+    @SerializedName("poster_path") val posterPath: String?,
+    @SerializedName("release_date") val releaseDate: String?,
+    @SerializedName("title") val title: String,
+    @SerializedName("video") val video: Boolean,
+    @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("vote_count") val voteCount: Int
 ) {
     fun toDomainMovie(): Movie {
         return Movie(
