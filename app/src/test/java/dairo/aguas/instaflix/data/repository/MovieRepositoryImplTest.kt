@@ -34,10 +34,10 @@ class MovieRepositoryImplTest {
 
     @Test
     fun whenGetMoviesPopularIsCalledShouldReturnMovies(): Unit = runBlocking {
-        val flowMoviesDTO = flowOf(Mocks.MOVIES_DTO_MOCK)
+//        val flowMoviesDTO = flowOf(Mocks.MOVIES_DTO_MOCK)
 
         //given
-        coEvery { movieAPI.getMoviesPopular("") } returns flowMoviesDTO
+//        coEvery { movieAPI.getMoviesPopular("") } returns flowMoviesDTO
 
         //when
         val moviesResult = movieRepository.getMoviesPopular()
@@ -55,12 +55,12 @@ class MovieRepositoryImplTest {
 
     @Test
     fun whenGetMoviesPopularIsCalledShouldReturnException(): Unit = runBlocking {
-        val flowMoviesDTO = flow<MoviesDTO> {
-            throw UnknownHostException()
-        }
+//        val flowMoviesDTO = flow<MoviesDTO> {
+//            throw UnknownHostException()
+//        }
 
         //given
-        coEvery { movieAPI.getMoviesPopular("") } returns flowMoviesDTO
+//        coEvery { movieAPI.getMoviesPopular("") } returns flowMoviesDTO
 
         //when
         val moviesResult = movieRepository.getMoviesPopular()

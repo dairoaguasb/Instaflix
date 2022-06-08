@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dairo.aguas.instaflix.databinding.CardMovieBinding
 import dairo.aguas.instaflix.ui.adapter.OnListenerDetail
 import dairo.aguas.instaflix.ui.detail.DetailFragment
-import dairo.aguas.instaflix.ui.model.MovieViewData
+import dairo.aguas.instaflix.ui.model.ItemViewData
 import dairo.aguas.instaflix.ui.utils.loadImage
 
 /**
@@ -15,7 +15,7 @@ class MoviesViewHolder(
     private val onListenerDetail: OnListenerDetail
 ) : RecyclerView.ViewHolder(cardMovieBinding.root) {
 
-    fun bind(movieViewData: MovieViewData) {
+    fun bind(movieViewData: ItemViewData) {
         with(cardMovieBinding) {
             tvTitle.text = movieViewData.title
             ivPoster.loadImage(movieViewData.posterPath)

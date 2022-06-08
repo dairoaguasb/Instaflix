@@ -46,7 +46,6 @@ class MoviesFragment : Fragment(), OnListenerDetail {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        moviesViewModel.emptyState()
         _binding = null
     }
 
@@ -93,9 +92,6 @@ class MoviesFragment : Fragment(), OnListenerDetail {
             is MoviesState.Error -> {
                 binding.pbLoading.gone()
                 showInformativeDialog(getString(moviesState.resource))
-            }
-            is MoviesState.Empty -> {
-                binding.pbLoading.gone()
             }
         }
     }

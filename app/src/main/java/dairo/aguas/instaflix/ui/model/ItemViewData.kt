@@ -5,7 +5,7 @@ import dairo.aguas.instaflix.domain.model.Movie
 /**
  * Created by Dairo Aguas B on 29/06/2021.
  */
-data class MovieViewData(
+data class ItemViewData(
     val id: Int,
     val posterPath: String,
     val title: String

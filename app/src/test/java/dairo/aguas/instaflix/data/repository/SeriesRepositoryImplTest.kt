@@ -34,10 +34,10 @@ class SeriesRepositoryImplTest {
 
     @Test
     fun whenGetSeriesPopularIsCalledReturnMovies(): Unit = runBlocking {
-        val flowSeriesDTO = flowOf(Mocks.SERIES_DTO_MOCK)
+//        val flowSeriesDTO = flowOf(Mocks.SERIES_DTO_MOCK)
 
         //given
-        coEvery { serieAPI.getSeriesPopular("") } returns flowSeriesDTO
+//        coEvery { serieAPI.getSeriesPopular("") } returns flowSeriesDTO
 
         //when
         val seriesResult = seriesRepository.getSeriesPopular()
@@ -55,12 +55,12 @@ class SeriesRepositoryImplTest {
 
     @Test
     fun whenGetSeriesPopularIsCalledReturnException(): Unit = runBlocking {
-        val flowSeriesDTO = flow<SeriesDTO> {
-            throw UnknownHostException()
-        }
+//        val flowSeriesDTO = flow<SeriesDTO> {
+//            throw UnknownHostException()
+//        }
 
         //given
-        coEvery { serieAPI.getSeriesPopular("") } returns flowSeriesDTO
+//        coEvery { serieAPI.getSeriesPopular("") } returns flowSeriesDTO
 
         //when
         val seriesResult = seriesRepository.getSeriesPopular()

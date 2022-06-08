@@ -7,7 +7,7 @@ import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
 import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.ui.base.BaseViewModel
-import dairo.aguas.instaflix.ui.model.MovieViewData
+import dairo.aguas.instaflix.ui.model.ItemViewData
 import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
@@ -28,7 +28,7 @@ class MoviesViewModel @Inject constructor(
             if (moviesResult is Result.Success) {
                 mutableState.value = MoviesState.Success(
                     data = moviesResult.data.movies.map {
-                        MovieViewData(it)
+                        ItemViewData(it)
                     }
                 )
             } else if (moviesResult is Result.Failure) {
@@ -46,7 +46,7 @@ class MoviesViewModel @Inject constructor(
             if (moviesResult is Result.Success) {
                 mutableState.value = MoviesState.Success(
                     data = moviesResult.data.movies.map {
-                        MovieViewData(it)
+                        ItemViewData(it)
                     }
                 )
             } else if (moviesResult is Result.Failure) {
@@ -64,7 +64,7 @@ class MoviesViewModel @Inject constructor(
             if (moviesResult is Result.Success) {
                 mutableState.value = MoviesState.Success(
                     data = moviesResult.data.movies.map {
-                        MovieViewData(it)
+                        ItemViewData(it)
                     }
                 )
             } else if (moviesResult is Result.Failure) {
@@ -75,9 +75,5 @@ class MoviesViewModel @Inject constructor(
         }.handleViewModelExceptions {
             mutableState.value = MoviesState.Error(manageException(it))
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
-    }
-
-    fun emptyState() {
-        mutableState.value = MoviesState.Empty
     }
 }
