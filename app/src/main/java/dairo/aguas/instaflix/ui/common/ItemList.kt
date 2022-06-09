@@ -17,13 +17,14 @@ import dairo.aguas.instaflix.ui.model.ItemViewData
 @Composable
 fun ItemList(items: List<ItemViewData>) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         if (items.isNotEmpty()) {
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(180.dp),
-                contentPadding = PaddingValues(4.dp),
+                columns = GridCells.Adaptive(128.dp),
+                contentPadding = PaddingValues(4.dp)
             ) {
                 items(items) {
                     CardListItem(itemViewData = it)
@@ -42,22 +43,26 @@ fun ItemListPreview() {
                 ItemViewData(
                     id = 1,
                     posterPath = "https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg",
-                    title = "Joker"
+                    title = "Joker",
+                    voteAverage = "7.0"
                 ),
                 ItemViewData(
                     id = 2,
                     posterPath = "https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg",
-                    title = "Back to the Future"
+                    title = "Back to the Future",
+                    voteAverage = "7.0"
                 ),
                 ItemViewData(
                     id = 3,
                     posterPath = "https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg",
-                    title = "Batman"
+                    title = "Batman",
+                    voteAverage = "7.0"
                 ),
                 ItemViewData(
                     id = 4,
                     posterPath = "https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg",
-                    title = "Superman"
+                    title = "Superman",
+                    voteAverage = "7.0"
                 )
             )
         )

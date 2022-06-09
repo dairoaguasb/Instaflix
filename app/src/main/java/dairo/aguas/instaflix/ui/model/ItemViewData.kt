@@ -8,12 +8,14 @@ import dairo.aguas.instaflix.domain.model.Movie
 data class ItemViewData(
     val id: Int,
     val posterPath: String,
-    val title: String
+    val title: String,
+    val voteAverage: String
 ) {
     constructor(movies: Movie) : this(
         id = movies.id,
         posterPath = IMAGE_ULR + movies.posterPath,
-        title = movies.title
+        title = movies.title,
+        voteAverage = movies.voteAverage.toString()
     )
 }
 
