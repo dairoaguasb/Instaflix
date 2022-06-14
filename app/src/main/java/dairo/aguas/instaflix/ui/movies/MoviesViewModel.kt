@@ -1,79 +1,50 @@
 package dairo.aguas.instaflix.ui.movies
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
-import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
-import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
-import dairo.aguas.instaflix.ui.base.BaseViewModel
 import dairo.aguas.instaflix.ui.model.ItemViewData
-import dairo.aguas.instaflix.ui.utils.handleViewModelExceptions
+import dairo.aguas.instaflix.ui.utils.manageErrorsToPresentation
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase,
     private val getMoviesPopularUseCase: GetMoviesPopularUseCase,
-    private val getMoviesTopRatedUseCase: GetMoviesTopRatedUseCase,
     private val coroutineDispatcher: CoroutineDispatcher
-) : BaseViewModel<MoviesState>(MoviesState.Loading) {
+) : ViewModel() {
 
-    fun getMoviesPopular() {
+    private val _state = MutableStateFlow(MoviesState())
+    val state: StateFlow<MoviesState> = _state.asStateFlow()
+
+    init {
+        getMoviesPopular()
+    }
+
+    private fun getMoviesPopular() {
         getMoviesPopularUseCase.invoke().map { moviesResult ->
-            if (moviesResult is Result.Success) {
-                mutableState.value = MoviesState.Success(
-                    data = moviesResult.data.movies.map {
-                        ItemViewData(it)
-                    }
-                )
-            } else if (moviesResult is Result.Failure) {
-                mutableState.value = MoviesState.Error(
-                    resource = manageException(moviesResult.domainException)
-                )
-            }
-        }.handleViewModelExceptions {
-            mutableState.value = MoviesState.Error(manageException(it))
-        }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
-    }
-
-    fun getMoviesUpcoming() {
-        getMoviesUpcomingUseCase.invoke().map { moviesResult ->
-            if (moviesResult is Result.Success) {
-                mutableState.value = MoviesState.Success(
-                    data = moviesResult.data.movies.map {
-                        ItemViewData(it)
-                    }
-                )
-            } else if (moviesResult is Result.Failure) {
-                mutableState.value = MoviesState.Error(
-                    resource = manageException(moviesResult.domainException)
-                )
-            }
-        }.handleViewModelExceptions {
-            mutableState.value = MoviesState.Error(manageException(it))
-        }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
-    }
-
-    fun getMoviesTopRated() {
-        getMoviesTopRatedUseCase.invoke().map { moviesResult ->
-            if (moviesResult is Result.Success) {
-                mutableState.value = MoviesState.Success(
-                    data = moviesResult.data.movies.map {
-                        ItemViewData(it)
-                    }
-                )
-            } else if (moviesResult is Result.Failure) {
-                mutableState.value = MoviesState.Error(
-                    resource = manageException(moviesResult.domainException)
-                )
-            }
-        }.handleViewModelExceptions {
-            mutableState.value = MoviesState.Error(manageException(it))
+            moviesResult.fold(
+                ifRight = {
+                    _state.value = MoviesState(
+                        items = it.movies.map { movie ->
+                            ItemViewData(movie)
+                        }
+                    )
+                },
+                ifLeft = {
+                    _state.value = MoviesState(error = manageErrorsToPresentation(it))
+                }
+            )
+        }.onStart {
+            _state.value = MoviesState(loading = true)
         }.flowOn(coroutineDispatcher).launchIn(viewModelScope)
     }
 }

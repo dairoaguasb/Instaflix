@@ -9,8 +9,6 @@ import dairo.aguas.instaflix.domain.repository.MovieRepository
 import dairo.aguas.instaflix.domain.repository.SerieRepository
 import dairo.aguas.instaflix.domain.usecase.GetMovieDetailUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSerieDetailUseCase
-import dairo.aguas.instaflix.ui.detail.DetailViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 
 /**
  * Created by Dairo Aguas B on 1/07/2021.
@@ -19,16 +17,16 @@ import kotlinx.coroutines.CoroutineDispatcher
 @InstallIn(ViewModelComponent::class)
 object DetailModule {
 
-    @Provides
-    fun detailViewModelProvider(
-        getMovieDetailUseCase: GetMovieDetailUseCase,
-        getSerieDetailUseCase: GetSerieDetailUseCase,
-        coroutineDispatcher: CoroutineDispatcher
-    ) = DetailViewModel(
-        getMovieDetailUseCase,
-        getSerieDetailUseCase,
-        coroutineDispatcher
-    )
+//    @Provides
+//    fun detailViewModelProvider(
+//        getMovieDetailUseCase: GetMovieDetailUseCase,
+//        getSerieDetailUseCase: GetSerieDetailUseCase,
+//        coroutineDispatcher: CoroutineDispatcher
+//    ) = DetailViewModel(
+//        getMovieDetailUseCase,
+//        getSerieDetailUseCase,
+//        coroutineDispatcher
+//    )
 
     @Provides
     @ViewModelScoped

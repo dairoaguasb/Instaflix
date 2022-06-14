@@ -1,5 +1,7 @@
 package dairo.aguas.instaflix.data.repository
 
+import arrow.core.left
+import arrow.core.right
 import dairo.aguas.instaflix.data.endpoints.MovieAPI
 import dairo.aguas.instaflix.domain.model.Movie
 import dairo.aguas.instaflix.domain.model.Movies
@@ -20,29 +22,15 @@ class MovieRepositoryImpl(
 
     override fun getMoviesPopular() = flow<Result<Movies>> {
         val apiResult = movieAPI.getMoviesPopular(apiKey)
-        emit(Result.Success(apiResult.toDomainMovies()))
+        emit(apiResult.toDomainMovies().right())
     }.catch {
-        throw domainExceptionRepository.manageError(it)
-    }
-
-    override fun getMoviesUpcoming() = flow<Result<Movies>> {
-        val apiResult = movieAPI.getMoviesUpcoming(apiKey)
-        emit(Result.Success(apiResult.toDomainMovies()))
-    }.catch {
-        throw domainExceptionRepository.manageError(it)
-    }
-
-    override fun getMoviesTopRated() = flow<Result<Movies>> {
-        val apiResult = movieAPI.getMoviesTopRated(apiKey)
-        emit(Result.Success(apiResult.toDomainMovies()))
-    }.catch {
-        throw domainExceptionRepository.manageError(it)
+        emit(domainExceptionRepository.manageError(it).left())
     }
 
     override fun getMovieDetail(id: Int) = flow<Result<Movie>> {
         val apiResult = movieAPI.getMovieDetail(id, apiKey)
-        emit(Result.Success(apiResult.toDomainMovie()))
+        emit(apiResult.toDomainMovie().right())
     }.catch {
-        throw domainExceptionRepository.manageError(it)
+        emit(domainExceptionRepository.manageError(it).left())
     }
 }

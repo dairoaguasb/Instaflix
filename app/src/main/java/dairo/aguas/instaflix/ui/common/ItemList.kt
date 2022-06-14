@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +17,10 @@ import dairo.aguas.instaflix.ui.home.InstaflixScreen
 import dairo.aguas.instaflix.ui.model.ItemViewData
 
 @Composable
-fun ItemList(items: List<ItemViewData>) {
+fun ItemList(
+    items: List<ItemViewData>,
+    lazyGridState: LazyGridState
+) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -24,7 +29,8 @@ fun ItemList(items: List<ItemViewData>) {
         if (items.isNotEmpty()) {
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(128.dp),
-                contentPadding = PaddingValues(4.dp)
+                contentPadding = PaddingValues(4.dp),
+                state = lazyGridState
             ) {
                 items(items) {
                     CardListItem(itemViewData = it)
@@ -64,7 +70,8 @@ fun ItemListPreview() {
                     title = "Superman",
                     voteAverage = "7.0"
                 )
-            )
+            ),
+            lazyGridState = rememberLazyGridState()
         )
     }
 }

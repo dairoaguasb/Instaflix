@@ -1,5 +1,7 @@
 package dairo.aguas.instaflix.data.repository
 
+import arrow.core.left
+import arrow.core.right
 import dairo.aguas.instaflix.data.endpoints.SerieAPI
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.model.Serie
@@ -20,29 +22,15 @@ class SeriesRepositoryImpl(
 
     override fun getSeriesPopular() = flow<Result<Series>> {
         val apiResult = serieAPI.getSeriesPopular(apiKey)
-        emit(Result.Success(apiResult.toDomainSeries()))
+        emit(apiResult.toDomainSeries().right())
     }.catch {
-        throw domainExceptionRepository.manageError(it)
-    }
-
-    override fun getSeriesOnAir() = flow<Result<Series>> {
-        val apiResult = serieAPI.getSeriesOnAir(apiKey)
-        emit(Result.Success(apiResult.toDomainSeries()))
-    }.catch {
-        throw domainExceptionRepository.manageError(it)
-    }
-
-    override fun getSeriesTopRated() = flow<Result<Series>> {
-        val apiResult = serieAPI.getSeriesTopRated(apiKey)
-        emit(Result.Success(apiResult.toDomainSeries()))
-    }.catch {
-        throw domainExceptionRepository.manageError(it)
+        emit(domainExceptionRepository.manageError(it).left())
     }
 
     override fun getSerieDetail(id: Int) = flow<Result<Serie>> {
         val apiResult = serieAPI.getSerieDetail(id, apiKey)
-        emit(Result.Success(apiResult.toDomainSerie()))
+        emit(apiResult.toDomainSerie().right())
     }.catch {
-        throw domainExceptionRepository.manageError(it)
+        emit(domainExceptionRepository.manageError(it).left())
     }
 }

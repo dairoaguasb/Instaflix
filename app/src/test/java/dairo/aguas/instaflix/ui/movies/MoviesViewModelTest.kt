@@ -5,8 +5,6 @@ import dairo.aguas.instaflix.domain.exception.NoConnectivityDomainException
 import dairo.aguas.instaflix.domain.model.Movies
 import dairo.aguas.instaflix.domain.model.Result
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
-import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
-import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.mock.Mocks
 import dairo.aguas.instaflix.utils.MainCoroutineRule
 import io.mockk.coEvery

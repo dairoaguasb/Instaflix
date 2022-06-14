@@ -12,9 +12,5 @@ interface SerieRepository {
 
     fun getSeriesPopular(): Flow<Result<Series>>
 
-    fun getSeriesOnAir(): Flow<Result<Series>>
-
-    fun getSeriesTopRated(): Flow<Result<Series>>
-
     fun getSerieDetail(id: Int): Flow<Result<Serie>>
 }

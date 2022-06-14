@@ -11,8 +11,6 @@ import dairo.aguas.instaflix.data.repository.MovieRepositoryImpl
 import dairo.aguas.instaflix.domain.repository.DomainExceptionRepository
 import dairo.aguas.instaflix.domain.repository.MovieRepository
 import dairo.aguas.instaflix.domain.usecase.GetMoviesPopularUseCase
-import dairo.aguas.instaflix.domain.usecase.GetMoviesTopRatedUseCase
-import dairo.aguas.instaflix.domain.usecase.GetMoviesUpcomingUseCase
 import dairo.aguas.instaflix.ui.movies.MoviesViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
@@ -26,31 +24,17 @@ object MoviesModule {
 
     @Provides
     fun moviesViewModelProvider(
-        getMoviesUpcomingUseCase: GetMoviesUpcomingUseCase,
         getMoviesPopularUseCase: GetMoviesPopularUseCase,
-        getMoviesTopRatedUseCase: GetMoviesTopRatedUseCase,
         coroutineDispatcher: CoroutineDispatcher
     ) = MoviesViewModel(
-        getMoviesUpcomingUseCase,
         getMoviesPopularUseCase,
-        getMoviesTopRatedUseCase,
         coroutineDispatcher
     )
 
     @Provides
     @ViewModelScoped
-    fun getMoviesLatestUseCaseProvider(movieRepository: MovieRepository) =
-        GetMoviesUpcomingUseCase(movieRepository)
-
-    @Provides
-    @ViewModelScoped
     fun getMoviesPopularUseCaseProvider(movieRepository: MovieRepository) =
         GetMoviesPopularUseCase(movieRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun getMoviesTopRatedUseCaseProvider(movieRepository: MovieRepository) =
-        GetMoviesTopRatedUseCase(movieRepository)
 
     @Provides
     @ViewModelScoped

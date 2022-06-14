@@ -1,4 +1,4 @@
-package dairo.aguas.instaflix.ui.movies
+package dairo.aguas.instaflix.ui.series
 
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -7,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import dairo.aguas.instaflix.R
 import dairo.aguas.instaflix.ui.common.ErrorMessage
 import dairo.aguas.instaflix.ui.common.ItemList
 import dairo.aguas.instaflix.ui.common.LoadingIndicator
@@ -15,32 +14,32 @@ import dairo.aguas.instaflix.ui.home.InstaflixScreen
 import dairo.aguas.instaflix.ui.model.ItemViewData
 
 @Composable
-fun MoviesScreen(
-    viewModel: MoviesViewModel,
+fun SeriesScreen(
+    viewModel: SeriesViewModel,
     lazyGridState: LazyGridState
 ) {
-    val moviesState by viewModel.state.collectAsState()
-    MoviesState(
-        moviesState = moviesState,
+    val seriesState by viewModel.state.collectAsState()
+    ScreenState(
+        seriesState = seriesState,
         lazyGridState = lazyGridState
     )
 }
 
 @Composable
-private fun MoviesState(
-    moviesState: MoviesState,
+private fun ScreenState(
+    seriesState: SeriesState,
     lazyGridState: LazyGridState
 ) {
     when {
-        moviesState.loading -> {
+        seriesState.loading -> {
             LoadingIndicator()
         }
-        moviesState.error != 0 -> {
-            ErrorMessage(message = stringResource(id = moviesState.error))
+        seriesState.error != 0 -> {
+            ErrorMessage(message = stringResource(id = seriesState.error))
         }
         else -> {
             ItemList(
-                items = moviesState.items,
+                items = seriesState.items,
                 lazyGridState = lazyGridState
             )
         }
@@ -49,31 +48,10 @@ private fun MoviesState(
 
 @Preview
 @Composable
-private fun MoviesStateLoadingPreview() {
+private fun SeriesStateSuccessPreview() {
     InstaflixScreen {
-        MoviesState(MoviesState(loading = true), rememberLazyGridState())
-    }
-}
-
-@Preview
-@Composable
-private fun MoviesStateErrorPreview() {
-    InstaflixScreen {
-        MoviesState(
-            MoviesState(
-                error = R.string.error_time_out
-            ),
-            rememberLazyGridState()
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun MoviesStateSuccessPreview() {
-    InstaflixScreen {
-        MoviesState(
-            MoviesState(
+        ScreenState(
+            SeriesState(
                 items = listOf(
                     ItemViewData(
                         id = 1,

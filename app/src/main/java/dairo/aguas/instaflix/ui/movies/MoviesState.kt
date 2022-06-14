@@ -5,11 +5,8 @@ import dairo.aguas.instaflix.ui.model.ItemViewData
 /**
  * Created by Dairo Aguas B on 30/06/2021.
  */
-sealed class MoviesState {
-
-    object Loading : MoviesState()
-
-    class Success(val data: List<ItemViewData>) : MoviesState()
-
-    class Error(val resource: Int) : MoviesState()
-}
+data class MoviesState(
+    val loading: Boolean = false,
+    val items: List<ItemViewData> = emptyList(),
+    val error: Int = 0
+)
