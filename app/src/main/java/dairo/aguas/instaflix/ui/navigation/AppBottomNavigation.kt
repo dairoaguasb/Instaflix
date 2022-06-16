@@ -9,22 +9,28 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import dairo.aguas.instaflix.ui.home.HomeTabs
 import dairo.aguas.instaflix.ui.ui.theme.InstaflixTheme
 import dairo.aguas.instaflix.ui.ui.theme.graySurface
 
 @Composable
 fun AppBottomNavigation(
-    bottomNavOptions: List<NavItem>,
-    currentRoute: String,
-    onNavItemClick: (NavItem) -> Unit
+    selectedTab: HomeTabs,
+    onNavItemClick: (HomeTabs) -> Unit
 ) {
-    val bottomNavBackground =
-        if (isSystemInDarkTheme()) graySurface else MaterialTheme.colors.background
+    val bottomNavBackground = if (isSystemInDarkTheme()) {
+        graySurface
+    } else {
+        MaterialTheme.colors.background
+    }
+
+    val tabs = HomeTabs.values()
+
     BottomNavigation(backgroundColor = bottomNavBackground) {
-        bottomNavOptions.forEach { item ->
+        tabs.forEach { item ->
             val title = stringResource(id = item.title)
             BottomNavigationItem(
-                selected = currentRoute.contains(item.navCommand.feature.route),
+                selected = item == selectedTab,
                 onClick = { onNavItemClick(item) },
                 icon = {
                     Icon(
@@ -43,8 +49,7 @@ fun AppBottomNavigation(
 fun AppBottomNavigationPreview() {
     InstaflixTheme {
         AppBottomNavigation(
-            bottomNavOptions = listOf(NavItem.MOVIES, NavItem.SERIES),
-            currentRoute = Feature.MOVIES.route,
+            selectedTab = HomeTabs.MOVIES,
         ) {
         }
     }

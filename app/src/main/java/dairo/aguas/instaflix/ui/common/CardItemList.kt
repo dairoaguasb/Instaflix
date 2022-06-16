@@ -27,13 +27,17 @@ import dairo.aguas.instaflix.ui.model.ItemViewData
 import dairo.aguas.instaflix.ui.ui.theme.InstaflixTheme
 
 @Composable
-fun CardListItem(itemViewData: ItemViewData) {
+fun CardListItem(
+    itemViewData: ItemViewData,
+    modifier: Modifier = Modifier
+) {
     Card(
         elevation = 8.dp,
-        modifier = Modifier.padding(8.dp),
+        modifier = modifier
+            .padding(8.dp),
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.onBackground,
-        contentColor = MaterialTheme.colors.background,
+        contentColor = MaterialTheme.colors.background
     ) {
         Column {
             Image(

@@ -1,5 +1,6 @@
 package dairo.aguas.instaflix.ui.navigation
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
@@ -9,9 +10,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import dairo.aguas.instaflix.ui.home.HomeTabScreen
 import dairo.aguas.instaflix.ui.home.HomeTabStateHolder
-import dairo.aguas.instaflix.ui.movies.MoviesScreen
-import dairo.aguas.instaflix.ui.series.SeriesScreen
+import dairo.aguas.instaflix.ui.home.HomeTabs
+import dairo.aguas.instaflix.ui.home.NavCommand
 
 @Composable
 fun Navigation(
@@ -20,40 +22,35 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Feature.MOVIES.route
+        startDestination = Feature.HOME.route
     ) {
-        moviesNav(navController, tabStateHolder)
-        seriesNav(navController, tabStateHolder)
+        homeTabNav(navController, tabStateHolder)
     }
 }
 
-private fun NavGraphBuilder.moviesNav(
+fun NavGraphBuilder.homeTabNav(
     navController: NavController,
     tabStateHolder: HomeTabStateHolder
 ) {
     navigation(
-        startDestination = NavCommand.ContentType(Feature.MOVIES).route,
-        route = Feature.MOVIES.route
+        startDestination = NavCommand.ContentType(Feature.HOME).route,
+        route = Feature.HOME.route
     ) {
-        composable(NavCommand.ContentType(Feature.MOVIES)) {
-            MoviesScreen(
+        composable(NavCommand.ContentType(Feature.HOME)) {
+            HomeTabScreen(
                 viewModel = hiltViewModel(),
-                lazyGridState = tabStateHolder.movieLazyGridState
-            )
+                tabStateHolder = tabStateHolder
+            ) { id, tab ->
+                val route = if (tab == HomeTabs.MOVIES) {
+                    NavCommand.ContentTypeDetail(Feature.MOVIES).createRoute(id)
+                } else {
+                    NavCommand.ContentTypeDetail(Feature.SERIES).createRoute(id)
+                }
+                navController.navigate(route)
+            }
         }
-    }
-}
-
-private fun NavGraphBuilder.seriesNav(
-    navController: NavController,
-    tabStateHolder: HomeTabStateHolder
-) {
-    navigation(
-        startDestination = NavCommand.ContentType(Feature.SERIES).route,
-        route = Feature.SERIES.route
-    ) {
-        composable(NavCommand.ContentType(Feature.SERIES)) {
-            SeriesScreen(hiltViewModel(), tabStateHolder.tvLazyGridState)
+        composable(NavCommand.ContentTypeDetail(Feature.MOVIES)) {
+            Text(text = "Detail")
         }
     }
 }

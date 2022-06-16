@@ -1,4 +1,4 @@
-package dairo.aguas.instaflix.ui.navigation
+package dairo.aguas.instaflix.ui.home
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -8,8 +8,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import dairo.aguas.instaflix.R
+import dairo.aguas.instaflix.ui.navigation.Feature
 
-enum class NavItem(
+enum class HomeTabs(
     val navCommand: NavCommand,
     val icon: ImageVector,
     @StringRes val title: Int

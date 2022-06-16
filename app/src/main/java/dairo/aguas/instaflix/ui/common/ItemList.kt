@@ -1,5 +1,6 @@
 package dairo.aguas.instaflix.ui.common
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +20,8 @@ import dairo.aguas.instaflix.ui.model.ItemViewData
 @Composable
 fun ItemList(
     items: List<ItemViewData>,
-    lazyGridState: LazyGridState
+    lazyGridState: LazyGridState,
+    openDetail: (ItemViewData) -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -33,7 +35,10 @@ fun ItemList(
                 state = lazyGridState
             ) {
                 items(items) {
-                    CardListItem(itemViewData = it)
+                    CardListItem(
+                        itemViewData = it,
+                        modifier = Modifier.clickable { openDetail(it) }
+                    )
                 }
             }
         }
@@ -72,6 +77,7 @@ fun ItemListPreview() {
                 )
             ),
             lazyGridState = rememberLazyGridState()
-        )
+        ) {
+        }
     }
 }

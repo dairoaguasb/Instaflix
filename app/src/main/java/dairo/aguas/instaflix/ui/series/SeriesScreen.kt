@@ -41,7 +41,9 @@ private fun ScreenState(
             ItemList(
                 items = seriesState.items,
                 lazyGridState = lazyGridState
-            )
+            ) {
+                // TODO: implementar
+            }
         }
     }
 }

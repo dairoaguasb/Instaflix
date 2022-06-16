@@ -8,6 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dairo.aguas.instaflix.ui.home.HomeTabs
 import dairo.aguas.instaflix.ui.utils.navigatePoppingUpToStartDestination
 import kotlinx.coroutines.CoroutineScope
 
@@ -27,14 +28,17 @@ class InstaflixAppState(
 ) {
 
     companion object {
-        val BOTTOM_NAV_OPTIONS = listOf(NavItem.MOVIES, NavItem.SERIES)
+        val BOTTOM_NAV_OPTIONS = listOf(HomeTabs.MOVIES, HomeTabs.SERIES)
     }
 
     val currentRoute: String
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination?.route
             ?: String()
 
-    fun onNavItemClick(navItem: NavItem) {
+    val showBottomNavigation: Boolean
+        @Composable get() = BOTTOM_NAV_OPTIONS.any { currentRoute.contains(it.navCommand.feature.route) }
+
+    fun onNavItemClick(navItem: HomeTabs) {
         navController.navigatePoppingUpToStartDestination(navItem.navCommand.route)
     }
 }

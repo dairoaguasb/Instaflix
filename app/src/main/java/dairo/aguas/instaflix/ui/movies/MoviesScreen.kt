@@ -1,17 +1,13 @@
 package dairo.aguas.instaflix.ui.movies
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,19 +23,22 @@ import dairo.aguas.instaflix.ui.utils.verticalGradientBackground
 @Composable
 fun MoviesScreen(
     viewModel: MoviesViewModel,
-    lazyGridState: LazyGridState
+    lazyGridState: LazyGridState,
+    openDetail: (ItemViewData) -> Unit
 ) {
     val moviesState by viewModel.state.collectAsState()
     MoviesState(
         moviesState = moviesState,
-        lazyGridState = lazyGridState
+        lazyGridState = lazyGridState,
+        openDetail = openDetail
     )
 }
 
 @Composable
 private fun MoviesState(
     moviesState: MoviesState,
-    lazyGridState: LazyGridState
+    lazyGridState: LazyGridState,
+    openDetail: (ItemViewData) -> Unit
 ) {
     when {
         moviesState.loading -> {
@@ -59,7 +58,8 @@ private fun MoviesState(
             ) {
                 ItemList(
                     items = moviesState.items,
-                    lazyGridState = lazyGridState
+                    lazyGridState = lazyGridState,
+                    openDetail = openDetail
                 )
             }
         }
@@ -70,7 +70,11 @@ private fun MoviesState(
 @Composable
 private fun MoviesStateLoadingPreview() {
     InstaflixScreen {
-        MoviesState(MoviesState(loading = true), rememberLazyGridState())
+        MoviesState(
+            moviesState = MoviesState(loading = true),
+            lazyGridState = rememberLazyGridState()
+        ) {
+        }
     }
 }
 
@@ -79,11 +83,11 @@ private fun MoviesStateLoadingPreview() {
 private fun MoviesStateErrorPreview() {
     InstaflixScreen {
         MoviesState(
-            MoviesState(
+            moviesState = MoviesState(
                 error = R.string.error_time_out
             ),
-            rememberLazyGridState()
-        )
+            lazyGridState = rememberLazyGridState()
+        ) {}
     }
 }
 
@@ -92,7 +96,7 @@ private fun MoviesStateErrorPreview() {
 private fun MoviesStateSuccessPreview() {
     InstaflixScreen {
         MoviesState(
-            MoviesState(
+            moviesState = MoviesState(
                 items = listOf(
                     ItemViewData(
                         id = 1,
@@ -120,7 +124,8 @@ private fun MoviesStateSuccessPreview() {
                     )
                 )
             ),
-            rememberLazyGridState()
-        )
+            lazyGridState = rememberLazyGridState()
+        ) {
+        }
     }
 }
