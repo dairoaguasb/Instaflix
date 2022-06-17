@@ -37,13 +37,15 @@ fun HomeTabScreen(
                         HomeTabs.MOVIES -> MoviesScreen(
                             viewModel = hiltViewModel(),
                             lazyGridState = tabStateHolder.movieLazyGridState
-                        ) { itemViewData ->
-                            openDetail(itemViewData.id, homeTabs)
+                        ) { id ->
+                            openDetail(id, homeTabs)
                         }
                         HomeTabs.SERIES -> SeriesScreen(
-                            hiltViewModel(),
-                            tabStateHolder.tvLazyGridState
-                        )
+                            viewModel = hiltViewModel(),
+                            lazyGridState = tabStateHolder.tvLazyGridState
+                        ) { id ->
+                            openDetail(id, homeTabs)
+                        }
                     }
                 }
             }

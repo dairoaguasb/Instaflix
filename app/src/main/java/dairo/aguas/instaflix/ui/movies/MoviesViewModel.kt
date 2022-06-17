@@ -29,7 +29,7 @@ class MoviesViewModel @Inject constructor(
         getMoviesPopular()
     }
 
-    private fun getMoviesPopular() {
+    fun getMoviesPopular() {
         getMoviesPopularUseCase.invoke().map { moviesResult ->
             moviesResult.fold(
                 ifRight = {

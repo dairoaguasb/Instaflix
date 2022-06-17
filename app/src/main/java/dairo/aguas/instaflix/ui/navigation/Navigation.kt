@@ -13,6 +13,7 @@ import androidx.navigation.navigation
 import dairo.aguas.instaflix.ui.home.HomeTabScreen
 import dairo.aguas.instaflix.ui.home.HomeTabStateHolder
 import dairo.aguas.instaflix.ui.home.HomeTabs
+import dairo.aguas.instaflix.ui.home.NavArg
 import dairo.aguas.instaflix.ui.home.NavCommand
 
 @Composable
@@ -49,7 +50,11 @@ fun NavGraphBuilder.homeTabNav(
                 navController.navigate(route)
             }
         }
-        composable(NavCommand.ContentTypeDetail(Feature.MOVIES)) {
+        composable(NavCommand.ContentTypeDetail(Feature.MOVIES)) { backStackEntry ->
+            val id = backStackEntry.arguments?.getInt(NavArg.ItemId.key) ?: 0
+            Text(text = "Detail $id")
+        }
+        composable(NavCommand.ContentTypeDetail(Feature.SERIES)) {
             Text(text = "Detail")
         }
     }

@@ -10,10 +10,16 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dairo.aguas.instaflix.ui.home.InstaflixScreen
 import dairo.aguas.instaflix.ui.model.ItemViewData
 
@@ -21,7 +27,8 @@ import dairo.aguas.instaflix.ui.model.ItemViewData
 fun ItemList(
     items: List<ItemViewData>,
     lazyGridState: LazyGridState,
-    openDetail: (ItemViewData) -> Unit
+    openDetail: (Int) -> Unit,
+    onRefresh: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -29,16 +36,25 @@ fun ItemList(
         contentAlignment = Alignment.Center
     ) {
         if (items.isNotEmpty()) {
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(128.dp),
-                contentPadding = PaddingValues(4.dp),
-                state = lazyGridState
+            var isRefreshing by remember { mutableStateOf(false) }
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+                onRefresh = {
+                    isRefreshing = true
+                    onRefresh.invoke()
+                }
             ) {
-                items(items) {
-                    CardListItem(
-                        itemViewData = it,
-                        modifier = Modifier.clickable { openDetail(it) }
-                    )
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(128.dp),
+                    contentPadding = PaddingValues(4.dp),
+                    state = lazyGridState
+                ) {
+                    items(items) {
+                        CardListItem(
+                            itemViewData = it,
+                            modifier = Modifier.clickable { openDetail(it.id) }
+                        )
+                    }
                 }
             }
         }
@@ -76,7 +92,8 @@ fun ItemListPreview() {
                     voteAverage = "7.0"
                 )
             ),
-            lazyGridState = rememberLazyGridState()
+            lazyGridState = rememberLazyGridState(),
+            openDetail = {},
         ) {
         }
     }
