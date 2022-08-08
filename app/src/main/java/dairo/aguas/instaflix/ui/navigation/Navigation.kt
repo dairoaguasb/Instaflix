@@ -15,6 +15,7 @@ import dairo.aguas.instaflix.ui.home.HomeTabStateHolder
 import dairo.aguas.instaflix.ui.home.HomeTabs
 import dairo.aguas.instaflix.ui.home.NavArg
 import dairo.aguas.instaflix.ui.home.NavCommand
+import dairo.aguas.instaflix.ui.movies.detail.MovieDetailScreen
 
 @Composable
 fun Navigation(
@@ -52,7 +53,10 @@ fun NavGraphBuilder.homeTabNav(
         }
         composable(NavCommand.ContentTypeDetail(Feature.MOVIES)) { backStackEntry ->
             val id = backStackEntry.arguments?.getInt(NavArg.ItemId.key) ?: 0
-            Text(text = "Detail $id")
+            MovieDetailScreen(
+                viewModel = hiltViewModel(),
+                movieId = id
+            )
         }
         composable(NavCommand.ContentTypeDetail(Feature.SERIES)) {
             Text(text = "Detail")

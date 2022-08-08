@@ -13,8 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,11 +28,9 @@ fun ErrorMessage(
     message: String,
     onRefresh: () -> Unit
 ) {
-    var isRefreshing by remember { mutableStateOf(false) }
     SwipeRefresh(
-        state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+        state = rememberSwipeRefreshState(isRefreshing = false),
         onRefresh = {
-            isRefreshing = true
             onRefresh.invoke()
         },
     ) {

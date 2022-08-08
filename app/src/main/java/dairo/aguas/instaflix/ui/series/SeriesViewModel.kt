@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dairo.aguas.instaflix.domain.usecase.GetSeriesPopularUseCase
 import dairo.aguas.instaflix.ui.model.ItemViewData
-import dairo.aguas.instaflix.ui.movies.MoviesState
 import dairo.aguas.instaflix.ui.utils.manageErrorsToPresentation
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

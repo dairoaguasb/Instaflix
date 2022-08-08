@@ -8,6 +8,7 @@
     <string name="movies.category_popular">Popular</string>
     <string name="movies.category_upcoming">Proximamente</string>
     <string name="movies.top_rated">Más valoradas</string>
+    <string name="movies.detail.release">Fecha de lanzamiento: %1$s</string>
 
     <!--    Series-->
     <string name="series.category_popular">Popular</string>

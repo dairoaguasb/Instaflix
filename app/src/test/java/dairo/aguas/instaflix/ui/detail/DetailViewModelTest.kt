@@ -8,6 +8,7 @@ import dairo.aguas.instaflix.domain.model.Serie
 import dairo.aguas.instaflix.domain.usecase.GetMovieDetailUseCase
 import dairo.aguas.instaflix.domain.usecase.GetSerieDetailUseCase
 import dairo.aguas.instaflix.mock.Mocks
+import dairo.aguas.instaflix.ui.movies.detail.DetailViewModel
 import dairo.aguas.instaflix.utils.MainCoroutineRule
 import io.mockk.coEvery
 import io.mockk.coVerify
